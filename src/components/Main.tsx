@@ -8,6 +8,7 @@ import Home from './Home'
 import Hot from './Hot'
 import Category from './Category'
 import Search from './Search'
+import SideBar from './SideBar'
 import { Alert } from 'react-native';
 
 class Main extends React.Component<RouteComponentProps<{}>> {
@@ -17,7 +18,8 @@ class Main extends React.Component<RouteComponentProps<{}>> {
       <Container>
         <Header>
           <Left>
-            <Button transparent>
+            <Button transparent
+            onPress={() => this.props.history.push("/SideBar")}>
               <Icon name='menu' />
             </Button>
           </Left>
@@ -45,11 +47,11 @@ class Main extends React.Component<RouteComponentProps<{}>> {
               <Icon name="thumbs-up" />
               <Text>人気</Text>
             </Button>
-            <Button vertical onPress={()=>{<Redirect to="/Category" />}}>
+            <Button vertical onPress={()=>{this.props.history.push('/Category')}}>
               <Icon active name="apps" />
               <Text>カテゴリ</Text>
             </Button>
-            <Button vertical onPress={()=>{<Redirect to="/Search" />}}>
+            <Button vertical onPress={()=>{this.props.history.push('/Search')}}>
               <Icon name="search" />
               <Text>検索</Text>
             </Button>
