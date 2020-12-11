@@ -14,11 +14,12 @@ class Line extends Component {
   }
 
 }
-export default function Category({ navigation: { navigate } }) {
+export default function Category({ navigation }) {
     return (
 
       <Container>
-        <AppHeader navigation={{navigate}}/>
+      <AppHeader navigation={navigation}/>
+
 
       <Content>
 

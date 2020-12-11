@@ -17,15 +17,13 @@ class Line extends Component {
   }
 
 }
-export default function Home({ navigation: { navigate } }) {
+export default function Home({ navigation }) {
 
     return (
       <Container>
-        <AppHeader navigation={{navigate}}/>
 
+<AppHeader navigation={navigation}/>
       <Content>
-        <Text>Home!</Text>
-
           <List>
             <Line/>
             <Line/>

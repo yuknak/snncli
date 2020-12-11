@@ -4,21 +4,47 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 
 import AppHeader from './AppHeader'
 
-export default function Hot({ navigation: { navigate } }) {
+class Line extends Component {
+  render() {
+    return (
+
+      <ListItem>
+<Text>Hot</Text>
+    </ListItem>
+    )
+  }
+
+}
+export default function Hot({ navigation }) {
   return (
 
     <Container>
-      <AppHeader navigation={{navigate}}/>
+      <AppHeader navigation={navigation}/>
 
     <Content>
 
-  <Text>test</Text>
-  <Button
-      onPress={() =>
-        navigate('Search', { })
-      }
-      title="Go to Search"
-    />
+    <List>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+            <Line/>
+          </List>
         </Content>
 
 

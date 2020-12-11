@@ -1,6 +1,7 @@
 //import 'react-native-gesture-handler'; // moved to index.js
 import * as React from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
+import { Container, Header, Title, Content, Footer, FooterTab, Left, Button, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
+import { View, Button as ButtonRN } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,7 +19,9 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-// Teken from https://reactnavigation.org/docs/bottom-tab-navigator
+// Custom tabBar made with NativeBase by yn
+// Base code has been taken from
+/// https://reactnavigation.org/docs/bottom-tab-navigator
 function MyTabBar({ state, descriptors, navigation }) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
@@ -74,6 +77,24 @@ function MyTabBar({ state, descriptors, navigation }) {
   );
 }
 
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <ButtonRN
+        onPress={() => navigation.navigate('Notifications')}
+        title="Go to notifications"
+      />
+    </View>
+  );
+}
+
+function NotificationsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <ButtonRN onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
+}
 
 function HomeTabs() {
   return (
@@ -86,11 +107,21 @@ function HomeTabs() {
   );
 }
 
-function App() {
+function DrawerScreens() {
+  return (
+    <Drawer.Navigator initialRouteName="HomeTabs">
+      <Drawer.Screen name="HomeTabs" component={HomeTabs}/>
+      <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+      <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+    </Drawer.Navigator>
+  );
+}
+
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeTabs} />
+        <Stack.Screen name="DrawerScreens" component={DrawerScreens} options={{headerShown: false}}/>
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>
@@ -98,4 +129,3 @@ function App() {
   );
 }
 
-export default App

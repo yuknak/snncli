@@ -15,11 +15,12 @@ class Line extends Component {
   }
 
 }
-export default function Search({ navigation: { navigate } }) {
+export default function Search({ navigation }) {
     return (
 
       <Container>
-        <AppHeader navigation={{navigate}}/>
+      <AppHeader navigation={navigation}/>
+
 
       <Content>
 
