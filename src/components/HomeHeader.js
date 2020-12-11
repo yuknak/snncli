@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
+import { Header, Title, Button, Left, Right, Body, Icon,Subtitle } from 'native-base';
 
-export default function AppHeader({navigation}){
+export default function HomeHeader({navigation}){
     return (
         <Header>
           <Left>

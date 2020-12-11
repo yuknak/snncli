@@ -1,56 +1,60 @@
 
 import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
+import { Container, Content, Button, Left, Right, Body, Text,Icon,List,ListItem,Switch,Grid,Col,Card } from 'native-base';
 
-import AppHeader from './AppHeader'
+import DrawerHeader from './DrawerHeader'
 
-class Line extends Component {
-  render() {
-    return (
 
-      <ListItem>
-<Text>Search</Text>
-    </ListItem>
-    )
-  }
-
-}
 export default function Settings({ navigation }) {
-    return (
+  return (
+    <Container>
+      <DrawerHeader navigation={navigation}/>
+      <Content padder>
+        <Card>
+          <ListItem icon>
+            <Left>
+              <Button style={{ backgroundColor: "#FF9501" }}>
+                <Icon active name="airplane" />
+              </Button>
+            </Left>
+            <Body>
+              <Text>Airplane Mode</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Button style={{ backgroundColor: "#007AFF" }}>
+                <Icon active name="wifi" />
+              </Button>
+            </Left>
+            <Body>
+              <Text>Wi-Fi</Text>
+            </Body>
+            <Right>
+              <Text>GeekyAnts</Text>
+              <Icon active name="arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Button style={{ backgroundColor: "#007AFF" }}>
+                <Icon active name="bluetooth" />
+              </Button>
+            </Left>
+            <Body>
+              <Text>Bluetooth</Text>
+            </Body>
+            <Right>
+              <Text>On</Text>
+              <Icon active name="arrow-forward" />
+            </Right>
+            </ListItem>
+          </Card>
 
-      <Container>
-        <AppHeader navigation={navigation}/>
-
-
-      <Content>
-
-          <List>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-          </List>
-          </Content>
-
-  
-      
-</Container>
-
-    );
-  }
+        </Content>
+    </Container>
+  );
+}

@@ -1,18 +1,22 @@
 //import 'react-native-gesture-handler'; // moved to index.js
 import * as React from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Left, Button, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
-import { View, Button as ButtonRN } from 'react-native';
+import { View, Icon as IconRN, Button as ButtonRN } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import { Provider } from 'react-redux';
+import configureStore from './configureStore';
+const store = configureStore();
+
 import Home from './src/components/Home'
 import Hot from './src/components/Hot'
 import Category from './src/components/Category'
 import Search from './src/components/Search'
-import Profile from './src/components/Profile'
+import About from './src/components/About'
 import Settings from './src/components/Settings'
 
 const Tab = createBottomTabNavigator();
@@ -77,25 +81,6 @@ function MyTabBar({ state, descriptors, navigation }) {
   );
 }
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <ButtonRN
-        onPress={() => navigation.navigate('Notifications')}
-        title="Go to notifications"
-      />
-    </View>
-  );
-}
-
-function NotificationsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <ButtonRN onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
-}
-
 function HomeTabs() {
   return (
     <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
@@ -110,22 +95,22 @@ function HomeTabs() {
 function DrawerScreens() {
   return (
     <Drawer.Navigator initialRouteName="HomeTabs">
-      <Drawer.Screen name="HomeTabs" component={HomeTabs}/>
-      <Drawer.Screen name="HomeScreen" component={HomeScreen} />
-      <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+      <Drawer.Screen name="HomeTabs" options={{title: "5chニュース", drawerIcon: () => (<Icon name="home"/>)}} component={HomeTabs}/>
+      <Drawer.Screen name="Settings" options={{title: "アプリ設定", drawerIcon: () => (<Icon name="settings"/>)}} component={Settings} />
+      <Drawer.Screen name="About" options={{title: "このアプリについて", drawerIcon: () => (<Icon name="information-circle" />)}} component={About} />
     </Drawer.Navigator>
   );
 }
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="DrawerScreens" component={DrawerScreens} options={{headerShown: false}}/>
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Settings" component={Settings} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="DrawerScreens" component={DrawerScreens} options={{headerShown: false}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

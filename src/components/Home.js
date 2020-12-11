@@ -1,28 +1,23 @@
 
 import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
-
-
-import AppHeader from './AppHeader'
-import { Alert } from 'react-native';
+import { Container, Content, Text,List,ListItem } from 'native-base';
+import HomeHeader from './HomeHeader'
 
 class Line extends Component {
   render() {
     return (
-
       <ListItem>
-<Text>Home</Text>
-    </ListItem>
+        <Text>Home5</Text>
+      </ListItem>
     )
   }
 
 }
-export default function Home({ navigation }) {
-
+export default class Home extends Component {
+  render() {
     return (
       <Container>
-
-<AppHeader navigation={navigation}/>
+      <HomeHeader {...this.props} />
       <Content>
           <List>
             <Line/>
@@ -47,12 +42,7 @@ export default function Home({ navigation }) {
             <Line/>
           </List>
           </Content>
-
-  
-      
-</Container>
-
-
-
-    );
+        </Container>
+    )
+  }
 }

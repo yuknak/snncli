@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
-import AppHeader from './AppHeader'
+import HomeHeader from './HomeHeader'
 
 class Line extends Component {
   render() {
@@ -18,7 +18,7 @@ export default function Category({ navigation }) {
     return (
 
       <Container>
-      <AppHeader navigation={navigation}/>
+      <HomeHeader navigation={navigation}/>
 
 
       <Content>
