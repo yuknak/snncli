@@ -7,7 +7,7 @@ class Line extends Component {
   render() {
     return (
       <ListItem>
-        <Text>Home5</Text>
+        <Text>Home</Text>
       </ListItem>
     )
   }

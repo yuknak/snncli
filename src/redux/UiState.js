@@ -3,36 +3,61 @@
 import Action from './Action'
 
 ////////////////////////////////////////////////////////////////////////////////
+// This is redux-persistent,
+// keeped between sessions, but if sessionUid is changed(= user changed)
+// it will be reinitialized for security.
 
 const initialState = {
-  alertMessage: '',   // Bootstrap4 Alert message body if empty, disappeared.
+  sessionUid: '',     // User id (if changed, total state will be re-inited)
+  alertMessage: '',   // Bootstrap4 Alert message body if empty, l'l be erased.
   alertVariant: '',   // Bootstrap4 Alert warning, error ... etc.
   loading: false,     // Bootstrap4 Spinner placed in center of screen
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Clear ui state
-
-export function clearUiState() {
-  initialState.alertMessage = ''
-  initialState.alertVariant = ''
-  initialState.loading = false
+  market: 'ethusd',
+  wallet: 'eth',
+  order: {},          // {ethusd:{side:'buy',price:0,amount:0,
+                      //    ord_type:'limit'}, ... }
+                      //
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Redux-Thunk framework
 
 export default function reducer(state=initialState, action) {
+  // In every call, do nothing with INVALID sessionUid
+  // First of all, you have to call initState() with sessionUid
+  if (action.type != Action.UI_INIT_STATE &&
+      state.sessionUid == '') {
+      console.log("INVALID sessionUid")
+      return state // do nothing
+  }
   switch (action.type) {
-    case Action.ALERT_SHOW:
+    case Action.UI_INIT_STATE:
+      // INIT data with DIFFERENT id or DO NOTHING with SAME id
+      if (state.sessionUid != action.sessionUid) {
+        // init with new sessionUid
+        return { ...initialState, sessionUid: action.sessionUid}
+      } else {
+        return state // do nothing
+      }
+    case Action.UI_ALERT_SHOW:
       return { ...state, alertVariant: action.variant,
         alertMessage: action.message }
-    case Action.ALERT_HIDE:      
+    case Action.UI_ALERT_HIDE:      
       return { ...state, alertVariant: '', alertMessage: '' }
-    case Action.LOADING_START:      
+    case Action.UI_LOADING_START:      
       return { ...state, loading: true }
-    case Action.LOADING_END:      
+    case Action.UI_LOADING_END:      
       return { ...state, loading: false }
+    case Action.UI_SEL_MARKET:
+      return { ...state, market: action.market }
+    case Action.UI_SEL_WALLET:
+      return { ...state, wallet: action.wallet }
+    case Action.UI_SEL_ORDER:
+      return { ...state,
+          order: {
+            ...state.order, 
+            [action.market]:action.order
+          }}
     default:
       return state;
   }
@@ -40,21 +65,34 @@ export default function reducer(state=initialState, action) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+export function initState(sessionUid) {
+  return ({type: Action.UI_INIT_STATE,
+    sessionUid: sessionUid})
+}
 export function showAlert(variant, message) {
-  return ({type: Action.ALERT_SHOW,
+  return ({type: Action.UI_ALERT_SHOW,
     variant: variant, message: message})
 }
-
 export function hideAlert() {
-  return ({type: Action.ALERT_HIDE })
+  return ({type: Action.UI_ALERT_HIDE })
 }
-
 export function startLoading() {
-  return ({type: Action.LOADING_START})
+  return ({type: Action.UI_LOADING_START})
 }
-
 export function endLoading() {
-  return ({type: Action.LOADING_END})
+  return ({type: Action.UI_LOADING_END})
+}
+export function selectWallet(wallet) {
+  return ({type: Action.UI_SEL_WALLET,
+    wallet: wallet })
+}
+export function selectMarket(market) {
+  return ({type: Action.UI_SEL_MARKET,
+    market: market })
+}
+export function selectOrder(market, order) {
+  return ({type: Action.UI_SEL_ORDER,
+    market:market, order: order })
 }
 
 ////////////////////////////////////////////////////////////////////////////////

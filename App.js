@@ -9,8 +9,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Provider } from 'react-redux';
-import configureStore from './configureStore';
-const store = configureStore();
+import { PersistGate } from 'redux-persist/integration/react'
+import store, { persistor } from './configureStore'
 
 import Home from './src/components/Home'
 import Hot from './src/components/Hot'
@@ -105,11 +105,13 @@ function DrawerScreens() {
 export default function App() {
   return (
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="DrawerScreens" component={DrawerScreens} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }

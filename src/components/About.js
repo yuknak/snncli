@@ -31,5 +31,5 @@ export default function About({ navigation }) {
         </Card>
       </Content>
     </Container>
-    );ß
+    );
   }
