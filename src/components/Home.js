@@ -18,6 +18,13 @@ class Home extends Component {
   }
   componentDidMount() {
     //Alert.alert('test')
+    this.props.api({
+      method: 'get',
+      url: '/thread',
+      //params: {limit: 25, page: 1},
+      noLoading: true
+    }, ()=>{ 
+    })
   }
   componentWillUnmount(){
   }
@@ -62,12 +69,14 @@ const mapDispatchToProps = dispatch => {
   return {
     api: (params,success,error) =>
       dispatch(apiState.api(params,success,error)),
+    /*
     selectMarket: (market) =>
       dispatch(uiState.selectMarket(market)),
     selectOrder: (market, order) =>
       dispatch(uiState.selectOrder(market, order)),
     showAlert: (variant, message) =>
       dispatch(uiState.showAlert(variant, message)),
+    */
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
