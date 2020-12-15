@@ -65,8 +65,9 @@ export const api = (params, success_func=()=>{}, error_func=()=>{}) => {
   // Use cookie auth(because of CORS issue, you have to config server side,
   // ex, opendax traefik toml file, in order to be together with peatio and baron
   // in the same domain and possibly you config CORS stuff in barong.
-  params.withCredentials = true 
-  params.baseURL = window.location.origin + '/api/v2'
+  //params.withCredentials = true 
+  //params.baseURL = window.location.origin + '/api/v2'
+  params.baseURL = "http://172.16.215.31:3000/api/v1"
   params.validateStatus = function (status) { // we can overwrite what is success
     return status >= 200 && status < 300; // but, use default behavior
   }

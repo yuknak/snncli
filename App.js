@@ -1,24 +1,27 @@
 //import 'react-native-gesture-handler'; // moved to index.js
 import * as React from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Left, Button, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
-import { View, Icon as IconRN, Button as ButtonRN } from 'react-native';
+import { Alert,View, Icon as IconRN, Button as ButtonRN } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import store, { persistor } from './configureStore'
 
 import Home from './src/components/Home'
-import Hot from './src/components/Hot'
+import Settings from './src/components/Settings'
 import Category from './src/components/Category'
 import Search from './src/components/Search'
 import About from './src/components/About'
-import Settings from './src/components/Settings'
 
+import HomeHeader from './src/components/HomeHeader'
+
+const MTab = createMaterialTopTabNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -85,9 +88,9 @@ function HomeTabs() {
   return (
     <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
       <Tab.Screen name="Home" options={{title: "ホーム",icon:"home"}} component={Home} />
-      <Tab.Screen name="Hot" options={{title: "人気",icon:"thumbs-up"}} component={Hot} />
-      <Tab.Screen name="Category" options={{title: "カテゴリ",icon:"apps"}} component={Category} />
+      <Tab.Screen name="Category" options={{title: "カテゴリ",icon:"newspaper"}} component={Category} />
       <Tab.Screen name="Search" options={{title: "検索",icon:"search"}} component={Search} />
+      <Tab.Screen name="Settings" options={{title: "設定",icon:"settings"}} component={Settings} />
     </Tab.Navigator>
   );
 }
@@ -106,11 +109,12 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="DrawerScreens" component={DrawerScreens} options={{headerShown: false}}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="DrawerScreens" component={DrawerScreens} options={{
+              header: () => <HomeHeader onPress={{}} /> }}/>
+          </Stack.Navigator>
+        </NavigationContainer>
       </PersistGate>
     </Provider>
   );

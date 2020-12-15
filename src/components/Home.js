@@ -1,86 +1,32 @@
 
-////////////////////////////////////////////////////////////////////////////////
-
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { Container, Content, Text,List,ListItem } from 'native-base';
+import { Tabs, Tab, Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle,ScrollableTab } from 'native-base';
 import HomeHeader from './HomeHeader'
+import HomeTab from './CategoryTab';
 import { Alert, RefreshControl,View } from "react-native";
 
-////////////////////////////////////////////////////////////////////////////////
+var board_list = [
+  {title: "総合", key:"general"},
+  {title: "最新", key:"latest"},
+  {title: "ホット", key:"hot"},
+]
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      refreshing: false
-    }
-  }
-  componentDidMount() {
-    //Alert.alert('test')
-    this.props.api({
-      method: 'get',
-      url: '/thread',
-      //params: {limit: 25, page: 1},
-      noLoading: true
-    }, ()=>{ 
-    })
-  }
-  componentWillUnmount(){
-  }
+export default class Home extends Component {
   render() {
-    const items=['test1','test2','test3','test4']
+    var tabList = []
+    board_list.forEach((item)=> {
+      tabList.push(
+        <Tab key={item.key} heading={item.title}>
+          <HomeTab boardName={item.key} title={item.title} {...this.props}/>
+        </Tab>
+      )
+    })
     return (
       <Container>
-      <HomeHeader {...this.props} />
-        <View>
-          <List
-            refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={()=>{
-                this.setState({refreshing: true})}
-            } /> }
-            dataArray={items}
-            renderRow={(item) =>
-              <ListItem>
-                <Text>{item}</Text>
-              </ListItem>
-            }
-            keyExtractor={(item, index) => item.toString()}
-            />
-          </View>
-        </Container>
-    )
+        <Tabs renderTabBar={()=> <ScrollableTab />}>
+          {tabList}
+        </Tabs>
+      </Container>
+    );
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-const mapStateToProps = state => {
-  return {
-    apiState: state.apiState,
-    appState: state.appState,
-    uiState: state.uiState,
   }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    api: (params,success,error) =>
-      dispatch(apiState.api(params,success,error)),
-    /*
-    selectMarket: (market) =>
-      dispatch(uiState.selectMarket(market)),
-    selectOrder: (market, order) =>
-      dispatch(uiState.selectOrder(market, order)),
-    showAlert: (variant, message) =>
-      dispatch(uiState.showAlert(variant, message)),
-    */
-  }
-}
-////////////////////////////////////////////////////////////////////////////////
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
-
-////////////////////////////////////////////////////////////////////////////////

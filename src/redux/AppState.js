@@ -87,22 +87,14 @@ export default function reducer(state=initialState, action) {
     return { ...state,
         rec: {
           ...state.rec, 
-          [action.name]:action.response.data
+          [action.name]:action.response
         }}
     case Action.APP_RECS:// multi records response
       return { ...state,
         recs: {
           ...state.recs, 
-          [action.name]: {
-            // array data
-            data: action.response.data,
-            // stores current page index info from http response header
-            page: action.response.headers['page'],
-            per_page: action.response.headers['per-page'],
-            total: action.response.headers['total']
-          }
-        }
-      }
+          [action.name]:action.response// array data
+        }}
     case Action.APP_WALLETS: // build wallets by using already existing data.
       return { ...state, wallets: buildWallets(state) }
     case Action.APP_WALLETS_QR: // put qr_code_url in wallets
@@ -139,6 +131,7 @@ export const dispatchAppSuccess = (dispatch, name, response) => {
 
   // RECS: Returns multiple records(table) with paging info.
   } else if (
+    name.startsWith('get:/thread')||
     name.startsWith('get:/barong/resource/users/activity')||
     name.startsWith('get:/peatio/account/balances')||
     name.startsWith('get:/peatio/public/currencies')||

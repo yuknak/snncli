@@ -1,51 +1,33 @@
 
 import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
+import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
 
 import HomeHeader from './HomeHeader'
+import FlatListDropDown from './FlatListDropDown'
 
-class Line extends Component {
-  render() {
-    return (
 
-      <ListItem>
-<Text>Search</Text>
-    </ListItem>
-    )
-  }
-
-}
 export default function Search({ navigation }) {
     return (
 
       <Container>
-      <HomeHeader navigation={navigation}/>
 
+
+<Header searchBar rounded>
+          <Item>
+            <Icon name="ios-search" />
+            <Input placeholder="Search" />
+            <Icon name="ios-people" />
+          </Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+        </Header>
+
+        <FlatListDropDown/>
 
       <Content>
 
-          <List>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-            <Line/>
-          </List>
+
           </Content>
       
 </Container>
