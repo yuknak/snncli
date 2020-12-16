@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
 
-import HomeHeader from './HomeHeader'
+import HomeHeader from './MyHeader'
 import FlatListDropDown from './FlatListDropDown'
 
 
@@ -12,7 +12,7 @@ export default function Search({ navigation }) {
       <Container>
 
 
-<Header searchBar rounded>
+      <Header searchBar rounded>
           <Item>
             <Icon name="ios-search" />
             <Input placeholder="Search" />

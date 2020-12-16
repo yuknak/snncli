@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem } from 'native-base';
-import HomeHeader from './HomeHeader'
+import HomeHeader from './MyHeader'
 import { Alert, RefreshControl,View } from "react-native";
 import * as apiState from '../redux/ApiState'
 import reducer, * as appState from '../redux/AppState'

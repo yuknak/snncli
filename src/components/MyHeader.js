@@ -9,7 +9,7 @@ import { Header, Title, Button, Left, Right, Body, Icon,Subtitle,Text } from 'na
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class HomeHeader extends Component {
+class MyHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,15 +19,14 @@ class HomeHeader extends Component {
     return (
       <Header>
         <Left>
-          { /*
-          <Button transparent onPress={()=>{this.props.onPress}}>
-            <Icon name='menu' />
-          </Button>
-          */ }
+          {
+          (<Button transparent onPress={()=>{this.props.uiState.navigation.openDrawer()}}>
+          <Icon name='menu' />
+        </Button>)}
         </Left>
         <Body>
           <Title>SUPERNN.NET</Title>
-          <Subtitle>5ちゃんねるニュース</Subtitle>
+          <Subtitle><Text>{this.props.uiState.routeName}</Text></Subtitle>
         </Body>
         <Right />
       </Header>
@@ -45,13 +44,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setNavigation: (navigation) =>
-      dispatch(uiState.setNavigation(navigation)),
+    setNavigation: (navigation,routeName) =>
+      dispatch(uiState.setNavigation(navigation,routeName)),
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+export default connect(mapStateToProps, mapDispatchToProps)(MyHeader)
 
 ////////////////////////////////////////////////////////////////////////////////

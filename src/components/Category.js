@@ -1,9 +1,12 @@
 
-import React, { Component } from 'react';
-import { Tabs, Tab, Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle,ScrollableTab } from 'native-base';
-import HomeHeader from './HomeHeader'
-import CategoryTab from './CategoryTab';
-import { Alert, RefreshControl,View } from "react-native";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { Tabs, Tab, Container, ScrollableTab } from 'native-base'
+import CategoryTab from './CategoryTab'
+import { Alert } from "react-native";
+import * as uiState from '../redux/UiState'
+import * as apiState from '../redux/ApiState'
 
 var board_list = [
   {title: "ニュー速", key:"newsplus"},
@@ -19,11 +22,14 @@ var board_list = [
   {title: "痛い", key:"dqnplus"},
 ]
 
-export default class Category extends Component {
+class Category extends Component {
   constructor(props) {
     super(props);
     this.state = {
     }
+  } 
+  componentDidMount() {
+    this.props.setNavigation(this.props.navigation,this.props.route.name)
   }
   render() {
     var tabList = []
@@ -36,11 +42,31 @@ export default class Category extends Component {
     })
     return (
       <Container>
-        <Text>{JSON.stringify(this.props)}</Text>
         <Tabs renderTabBar={()=> <ScrollableTab />}>
           {tabList}
         </Tabs>
       </Container>
     );
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+const mapStateToProps = state => {
+  return {
+    uiState: state.uiState,
   }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setNavigation: (navigation,routeName) =>
+      dispatch(uiState.setNavigation(navigation,routeName)),
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category)
+
+////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
+import { clockRunning } from 'react-native-reanimated'
 import Action from './Action'
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13,6 +14,7 @@ const initialState = {
   alertVariant: '',   // Bootstrap4 Alert warning, error ... etc.
   loading: false,     // Bootstrap4 Spinner placed in center of screen
   navigation: null,
+  routeName: '',
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,11 +23,11 @@ const initialState = {
 export default function reducer(state=initialState, action) {
   // In every call, do nothing with INVALID sessionUid
   // First of all, you have to call initState() with sessionUid
-  if (action.type != Action.UI_INIT_STATE &&
-      state.sessionUid == '') {
-      console.log("INVALID sessionUid")
-      return state // do nothing
-  }
+  //if (action.type != Action.UI_INIT_STATE &&
+  //    state.sessionUid == '') {
+  //    console.log("INVALID sessionUid")
+  //    return state // do nothing
+  //}
   switch (action.type) {
     case Action.UI_INIT_STATE:
       // INIT data with DIFFERENT id or DO NOTHING with SAME id
@@ -45,7 +47,8 @@ export default function reducer(state=initialState, action) {
     case Action.UI_LOADING_END:      
       return { ...state, loading: false }
     case Action.UI_SET_NAVIGATION:
-      return { ...state, navigation: action.navigation }
+      console.debug('OUT')
+      return { ...state, navigation: action.navigation, routeName: action.routeName }
     default:
       return state;
   }
@@ -70,9 +73,9 @@ export function startLoading() {
 export function endLoading() {
   return ({type: Action.UI_LOADING_END})
 }
-export function setNavigation(navigation) {
+export function setNavigation(navigation, routeName) {
   return ({type: Action.UI_SET_NAVIGATION,
-    navigation: navigation})
+    navigation: navigation, routeName: routeName})
 }
 
 ////////////////////////////////////////////////////////////////////////////////

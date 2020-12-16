@@ -9,7 +9,7 @@ import store, { persistor } from './configureStore'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import HomeHeader from './src/components/HomeHeader'
+import HomeHeader from './src/components/MyHeader'
 import NavDrawerScreens from './src/components/NavDrawerScreens'
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -79,11 +79,9 @@ export default function NavHomeTabs() {
       <Tab.Screen name="Home"
         options={{title: "ホーム",icon:"home"}} component={Home} />
       <Tab.Screen name="Category"
-        options={{title: "カテゴリ",icon:"newspaper"}} component={Category} />
+        options={{title: "カテゴリ",icon:"list"}} component={Category} />
       <Tab.Screen name="Search"
         options={{title: "検索",icon:"search"}} component={Search} />
-      <Tab.Screen name="Settings"
-        options={{title: "設定",icon:"settings"}} component={Settings} />
     </Tab.Navigator>
   )
 }
