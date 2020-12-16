@@ -20,6 +20,11 @@ var board_list = [
 ]
 
 export default class Category extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
   render() {
     var tabList = []
     board_list.forEach((item)=> {
@@ -31,6 +36,7 @@ export default class Category extends Component {
     })
     return (
       <Container>
+        <Text>{JSON.stringify(this.props)}</Text>
         <Tabs renderTabBar={()=> <ScrollableTab />}>
           {tabList}
         </Tabs>

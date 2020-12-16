@@ -12,11 +12,7 @@ const initialState = {
   alertMessage: '',   // Bootstrap4 Alert message body if empty, l'l be erased.
   alertVariant: '',   // Bootstrap4 Alert warning, error ... etc.
   loading: false,     // Bootstrap4 Spinner placed in center of screen
-  market: 'ethusd',
-  wallet: 'eth',
-  order: {},          // {ethusd:{side:'buy',price:0,amount:0,
-                      //    ord_type:'limit'}, ... }
-                      //
+  navigation: null,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,16 +44,8 @@ export default function reducer(state=initialState, action) {
       return { ...state, loading: true }
     case Action.UI_LOADING_END:      
       return { ...state, loading: false }
-    case Action.UI_SEL_MARKET:
-      return { ...state, market: action.market }
-    case Action.UI_SEL_WALLET:
-      return { ...state, wallet: action.wallet }
-    case Action.UI_SEL_ORDER:
-      return { ...state,
-          order: {
-            ...state.order, 
-            [action.market]:action.order
-          }}
+    case Action.UI_SET_NAVIGATION:
+      return { ...state, navigation: action.navigation }
     default:
       return state;
   }
@@ -82,17 +70,9 @@ export function startLoading() {
 export function endLoading() {
   return ({type: Action.UI_LOADING_END})
 }
-export function selectWallet(wallet) {
-  return ({type: Action.UI_SEL_WALLET,
-    wallet: wallet })
-}
-export function selectMarket(market) {
-  return ({type: Action.UI_SEL_MARKET,
-    market: market })
-}
-export function selectOrder(market, order) {
-  return ({type: Action.UI_SEL_ORDER,
-    market:market, order: order })
+export function setNavigation(navigation) {
+  return ({type: Action.UI_SET_NAVIGATION,
+    navigation: navigation})
 }
 
 ////////////////////////////////////////////////////////////////////////////////

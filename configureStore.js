@@ -24,7 +24,6 @@ const encryptor = encryptTransform({
 const persistConfig = {
   version: 1,
   key: 'snncli.root',
-  //storage,
   storage: AsyncStorage,
   transforms: [encryptor],
   blacklist: ['apiState' /*,'appState','uiState'*/ ]

@@ -12,6 +12,11 @@ var board_list = [
 ]
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
   render() {
     var tabList = []
     board_list.forEach((item)=> {
@@ -23,6 +28,9 @@ export default class Home extends Component {
     })
     return (
       <Container>
+        <Button transparent onPress={()=>{this.props.navigation.openDrawer()}}>
+          <Icon name='chevron-back-outline' />
+        </Button>
         <Tabs renderTabBar={()=> <ScrollableTab />}>
           {tabList}
         </Tabs>

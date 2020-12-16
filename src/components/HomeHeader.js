@@ -1,8 +1,15 @@
 
-import React, { Component } from 'react';
-import { Header, Title, Button, Left, Right, Body, Icon,Subtitle } from 'native-base';
+////////////////////////////////////////////////////////////////////////////////
 
-export default class HomeHeader extends Component {
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as uiState from '../redux/UiState'
+import * as apiState from '../redux/ApiState'
+import { Header, Title, Button, Left, Right, Body, Icon,Subtitle,Text } from 'native-base'
+
+////////////////////////////////////////////////////////////////////////////////
+
+class HomeHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +31,27 @@ export default class HomeHeader extends Component {
         </Body>
         <Right />
       </Header>
+
     )
   }
 }
+////////////////////////////////////////////////////////////////////////////////
+
+const mapStateToProps = state => {
+  return {
+    uiState: state.uiState,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setNavigation: (navigation) =>
+      dispatch(uiState.setNavigation(navigation)),
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+
+////////////////////////////////////////////////////////////////////////////////
