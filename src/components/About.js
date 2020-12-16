@@ -1,10 +1,26 @@
 
 import React, { Component } from 'react';
 import { Container, Content, Body, Text,Card,CardItem,Button,Icon,Grid,Col,Right } from 'native-base';
+import { connect } from 'react-redux'
+import * as uiState from '../redux/UiState'
+import * as apiState from '../redux/ApiState'
 
 import DrawerHeader from './DrawerHeader'
 
-export default class About extends Component {
+class About extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+  componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.props.setNavigation(this.props.navigation,this.props.route.name)
+    });
+  }
+  componentWillUnmount() {
+    this._unsubscribe()
+  }
   render() {
     return (
       <Container>
@@ -35,3 +51,23 @@ export default class About extends Component {
       )      
   }
 }
+////////////////////////////////////////////////////////////////////////////////
+
+const mapStateToProps = state => {
+  return {
+    uiState: state.uiState,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setNavigation: (navigation,routeName) =>
+      dispatch(uiState.setNavigation(navigation,routeName)),
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export default connect(mapStateToProps, mapDispatchToProps)(About)
+
+////////////////////////////////////////////////////////////////////////////////

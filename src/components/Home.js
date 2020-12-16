@@ -27,7 +27,12 @@ class Home extends Component {
     }
   }
   componentDidMount() {
-    this.props.setNavigation(this.props.navigation,this.props.route.name)
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.props.setNavigation(this.props.navigation,this.props.route.name)
+    });
+  }
+  componentWillUnmount() {
+    this._unsubscribe()
   }
   render() {
     var tabList = []

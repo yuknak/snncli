@@ -1,3 +1,4 @@
+////////////////////////////////////////////////////////////////////////////////
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -7,6 +8,8 @@ import CategoryTab from './CategoryTab'
 import { Alert } from "react-native";
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
+
+////////////////////////////////////////////////////////////////////////////////
 
 var board_list = [
   {title: "ニュー速", key:"newsplus"},
@@ -22,6 +25,8 @@ var board_list = [
   {title: "痛い", key:"dqnplus"},
 ]
 
+////////////////////////////////////////////////////////////////////////////////
+
 class Category extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +34,12 @@ class Category extends Component {
     }
   } 
   componentDidMount() {
-    this.props.setNavigation(this.props.navigation,this.props.route.name)
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.props.setNavigation(this.props.navigation,this.props.route.name)
+    });
+  }
+  componentWillUnmount() {
+    this._unsubscribe()
   }
   render() {
     var tabList = []

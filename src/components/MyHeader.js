@@ -20,7 +20,7 @@ class MyHeader extends Component {
       <Header>
         <Left>
           {
-          (<Button transparent onPress={()=>{this.props.uiState.navigation.openDrawer()}}>
+          (<Button transparent onPress={()=>{this.props.uiState.navigation.toggleDrawer()}}>
           <Icon name='menu' />
         </Button>)}
         </Left>

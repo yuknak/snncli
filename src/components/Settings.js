@@ -1,11 +1,28 @@
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import * as uiState from '../redux/UiState'
+import * as apiState from '../redux/ApiState'
+
 import { Container, Content, Button, Left, Right, Body, Text,Icon,List,ListItem,Switch,Grid,Col,Card } from 'native-base';
 
 import DrawerHeader from './DrawerHeader'
 
-
-export default function SettingsTab({ navigation }) {
+class SettingsTab extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+  }
+  componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.props.setNavigation(this.props.navigation,this.props.route.name)
+    });
+  }
+  componentWillUnmount() {
+    this._unsubscribe()
+  }
+  render() {
   return (
     <Container>
       <Content>
@@ -55,5 +72,26 @@ export default function SettingsTab({ navigation }) {
 
         </Content>
     </Container>
-  );
+  )
+  }
 }
+////////////////////////////////////////////////////////////////////////////////
+
+const mapStateToProps = state => {
+  return {
+    uiState: state.uiState,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setNavigation: (navigation,routeName) =>
+      dispatch(uiState.setNavigation(navigation,routeName)),
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsTab)
+
+////////////////////////////////////////////////////////////////////////////////
