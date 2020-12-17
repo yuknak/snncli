@@ -27,6 +27,7 @@ class MyWebView extends Component {
   }
   componentWillUnmount() {
     this._unsubscribe()
+    //Alert.alert('web unmount')
   }
   // How to inject JS in details
   //https://github.com/react-native-webview/react-native-webview/blob/master/docs/Guide.md
@@ -39,9 +40,22 @@ class MyWebView extends Component {
     });
     // Remove ads
     const runFirst = `
-      window.isNativeApp = true;
       function clean() {
         var len = 0;
+        var elems = null;
+        var elem = null;
+        elem = document.getElementById('main');
+        if (elem) {
+          elem.removeAttribute('class')
+        }
+        elem = document.getElementById('header');
+        if (elem) {
+          elem.remove();
+        }
+        elems = document.getElementsByClassName('socialwrap');
+        if (elems && elems[0]) {
+          elems[0].remove();
+        }
         len = document.getElementsByClassName("js-overlay_ad").length;
         for (var i = 0; i < len; ++i) {
           document.getElementsByClassName("js-overlay_ad")[0].remove();
@@ -66,34 +80,22 @@ class MyWebView extends Component {
         for (var i = 0; i < len; ++i) {
           document.getElementsByTagName("iframe")[0].remove();
         }
-        var elems = null;
-        var elem = null;
-        elems = document.getElementsByClassName('socialwrap');
-        if (elems && elems[0]) {
-          elems[0].remove();
-        }
         elems = document.getElementsByClassName('float-nav');
         if (elems && elems[0]) {
           elems[0].remove();
         }
-        elem = document.getElementById('main');
-        if (elem) {
-          elem.removeAttribute('class')
-        }
-        elem = document.getElementById('header');
-        if (elem) {
-          elem.remove();
-        }
       }
-      var timer = setInterval(clean, 500);
+      var timer = setInterval(clean, 1000);
       true;
     `;
-    setTimeout(() => {
-      // for android
-      if (this.webref) {
-        this.webref.injectJavaScript(runFirst);
-      }
-    }, 1500);
+    if (Platform.OS === 'android') {
+      var id = setInterval(()=>{
+        if (this.webref) {
+          this.webref.injectJavaScript(runFirst);
+          clearInterval(id);
+        }        
+      }, 1500);  
+    }
     const webview = Platform.select({
       ios: (<WebView
         injectedJavaScriptBeforeContentLoaded={runFirst}
