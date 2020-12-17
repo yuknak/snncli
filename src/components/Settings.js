@@ -34,11 +34,88 @@ class SettingsTab extends Component {
         <Card>
           <List>
           <ListItem icon>
-            <Left>
-              <Button style={{ backgroundColor: "#FF9501" }}>
-                <Icon active name="airplane" />
-              </Button>
-            </Left>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
+            <Body>
+              <Text>ニュー速</Text>
+            </Body>
+            <Right>
+              <Switch value={false} />
+            </Right>
+          </ListItem>
+          <ListItem icon>
+            <Left></Left>
             <Body>
               <Text>ニュー速</Text>
             </Body>
@@ -47,9 +124,7 @@ class SettingsTab extends Component {
             </Right>
           </ListItem>
           </List>
-   
           </Card>
-
         </Content>
     </Container>
   )
