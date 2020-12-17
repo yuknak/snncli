@@ -28,6 +28,8 @@ class MyWebView extends Component {
   componentWillUnmount() {
     this._unsubscribe()
   }
+  // How to inject JS in details
+  //https://github.com/react-native-webview/react-native-webview/blob/master/docs/Guide.md
   render() {
     var uri = this.props.route.params.uri
     var loadingDiv = (<Spinner color='black'/>)
@@ -35,12 +37,14 @@ class MyWebView extends Component {
       ios: (<Icon name="close"/>),
       android: (<Icon style={{color: 'white'}} name="close"/>),
     });
-    const run = `
+    // Remove ads
+    const runFirst = `
       function clean() {
-        document.getElementById('header').remove();
-        document.getElementById('main').removeAttribute('class');
-        document.getElementsByClassName('socialwrap')[0].remove();
         var len = 0;
+        len = document.getElementsByClassName("js-overlay_ad").length;
+        for (var i = 0; i < len; ++i) {
+          document.getElementsByClassName("js-overlay_ad")[0].remove();
+        }
         len = document.getElementsByClassName("microad_compass_ad").length;
         for (var i = 0; i < len; ++i) {
           document.getElementsByClassName("microad_compass_ad")[0].remove();
@@ -61,22 +65,34 @@ class MyWebView extends Component {
         for (var i = 0; i < len; ++i) {
           document.getElementsByTagName("iframe")[0].remove();
         }
+        var elems = null;
+        var elem = null;
+        elems = document.getElementsByClassName('socialwrap');
+        if (elems && elems[0]) {
+          elems[0].remove();
+        }
+        elems = document.getElementsByClassName('float-nav');
+        if (elems && elems[0]) {
+          elems[0].remove();
+        }
+        elem = document.getElementById('main');
+        if (elem) {
+          elem.removeAttribute('class')
+        }
+        elem = document.getElementById('header');
+        if (elem) {
+          elem.remove();
+        }
       }
-      //window.onload = function () {
-        clean();
-      //};
+      var timer = setInterval(clean, 100);
       true;
     `;
-    setTimeout(() => {
-      if (this.webref) {
-        this.webref.injectJavaScript(run);
-      }
-    }, 7000);
     return (
       <Container>
         {this.state.loading ? loadingDiv : null}
         <WebView
-          ref={(r) => (this.webref = r)}
+          onMessage={(event) => {}}
+          injectedJavaScript={runFirst}
           source={{uri: uri}}
           onLoad={()=>{  }}
           onLoadEnd={()=>{this.setState({loading: false})}}
