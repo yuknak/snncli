@@ -1,11 +1,14 @@
 
+////////////////////////////////////////////////////////////////////////////////
+
 import React, { Component } from 'react';
-import { Container, Content, Body, Text,Card,CardItem,Button,Icon,Grid,Col,Right } from 'native-base';
+import { List, ListItem, Container, Content, Body, Text,Card,CardItem,Button,Icon,Grid,Col,Right } from 'native-base';
 import { connect } from 'react-redux'
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
+import { Alert } from 'react-native';
 
-import DrawerHeader from './DrawerHeader'
+////////////////////////////////////////////////////////////////////////////////
 
 class About extends Component {
   constructor(props) {
@@ -22,9 +25,10 @@ class About extends Component {
     this._unsubscribe()
   }
   render() {
+    //        <List><ListItem onPress={()=>{Alert.alert('test')}}><Text>test</Text></ListItem></List>
+
     return (
       <Container>
-        { /* <DrawerHeader navigation={navigation}/> */}
         <Content padder>
           <Card>
             <CardItem header bordered>

@@ -5,13 +5,14 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import store, { persistor } from './configureStore'
-import { Alert } from 'react-native'
+//import { Alert } from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import HomeHeader from './src/components/MyHeader'
 import NavDrawerScreens from './src/components/NavDrawerScreens'
+import MyWebView from './src/components/MyWebView'
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -32,6 +33,12 @@ export default class App extends React.Component {
             <Stack.Screen
               name="NavDrawerScreens"
               component={NavDrawerScreens}
+              options={{
+                header: () => <HomeHeader onPress={{}} />
+              }}/>
+            <Stack.Screen
+              name="MyWebView"
+              component={MyWebView}
               options={{
                 header: () => <HomeHeader onPress={{}} />
               }}/>

@@ -1,58 +1,38 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
-import { Formik} from 'formik'
-
-import { Container, Content, Button, Left, Right, Body, Text,Icon,List,ListItem,Switch,Grid,Col,Card } from 'native-base'
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class SettingItem extends Component {
+import { WebView } from 'react-native-webview';
+import { Alert } from 'react-native';
 
-}
+////////////////////////////////////////////////////////////////////////////////
 
-class SettingsTab extends Component {
+class MyWebView extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
     }
   }
   componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
+      //Alert.alert(JSON.stringify(this.props.route))
     });
   }
   componentWillUnmount() {
     this._unsubscribe()
   }
   render() {
-  return (
-    <Container>
-      <Content>
-        <Card>
-          <List>
-          <ListItem icon>
-            <Left>
-              <Button style={{ backgroundColor: "#FF9501" }}>
-                <Icon active name="airplane" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          </List>
-   
-          </Card>
-
-        </Content>
-    </Container>
-  )
+    var uri = this.props.route.params.uri
+    return (
+      <>
+      <WebView source={{uri: uri}} />
+      </>
+    );
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -72,6 +52,6 @@ const mapDispatchToProps = dispatch => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsTab)
+export default connect(mapStateToProps, mapDispatchToProps)(MyWebView)
 
 ////////////////////////////////////////////////////////////////////////////////

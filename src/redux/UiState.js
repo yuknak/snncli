@@ -9,12 +9,19 @@ import Action from './Action'
 // it will be reinitialized for security.
 
 const initialState = {
+  version: 1,
   sessionUid: '',     // User id (if changed, total state will be re-inited)
   alertMessage: '',   // Bootstrap4 Alert message body if empty, l'l be erased.
   alertVariant: '',   // Bootstrap4 Alert warning, error ... etc.
   loading: false,     // Bootstrap4 Spinner placed in center of screen
-  navigation: null,
-  routeName: '',
+  navigation: null,   // to control react navigation globally
+  routeName: '',      // to get global state of react navigation
+  category: {
+    maxItems: 25,
+    boards: [
+      {name: "", enabled: true},
+    ],
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

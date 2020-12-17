@@ -39,6 +39,9 @@ class HomeTab extends Component {
   }
   componentWillUnmount(){
   }
+
+  //https://asahi.5ch.net/test/read.cgi/newsplus/1608166501/-100
+
   render() {
     var data = null
     if (this.props.appState.recs['get:/thread']) {
@@ -48,7 +51,6 @@ class HomeTab extends Component {
     params = {limit: 25, page: 1}
     return (
       <Container>
-      { /* <HomeHeader {...this.props} /> */ }
         <Content refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}
@@ -68,8 +70,8 @@ class HomeTab extends Component {
         <List
           dataArray={data}
           renderRow={(item) =>
-
-            <ListItem>
+            <ListItem onPress={()=>{
+              this.props.navigation.push("MyWebView",{uri:'https://www.yahoo.co.jp/'})}}>
               <Text>{item.title}</Text>
             </ListItem>
           }
