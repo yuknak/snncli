@@ -35,10 +35,48 @@ class MyWebView extends Component {
       ios: (<Icon name="close"/>),
       android: (<Icon style={{color: 'white'}} name="close"/>),
     });
+    const run = `
+      function clean() {
+        document.getElementById('header').remove();
+        document.getElementById('main').removeAttribute('class');
+        document.getElementsByClassName('socialwrap')[0].remove();
+        var len = 0;
+        len = document.getElementsByClassName("microad_compass_ad").length;
+        for (var i = 0; i < len; ++i) {
+          document.getElementsByClassName("microad_compass_ad")[0].remove();
+        }
+        len = document.getElementsByClassName("res_ad").length;
+        for (var i = 0; i < len; ++i) {
+          document.getElementsByClassName("res_ad")[0].remove();
+        }
+        len = document.getElementsByClassName("roninform_wrap").length;
+        for (var i = 0; i < len; ++i) {
+          document.getElementsByClassName("roninform_wrap")[0].remove();
+        }
+        len = document.getElementsByClassName("ad").length;
+        for (var i = 0; i < len; ++i) {
+          document.getElementsByClassName("ad")[0].remove();
+        }
+        len = document.getElementsByTagName("iframe").length;
+        for (var i = 0; i < len; ++i) {
+          document.getElementsByTagName("iframe")[0].remove();
+        }
+      }
+      //window.onload = function () {
+        clean();
+      //};
+      true;
+    `;
+    setTimeout(() => {
+      if (this.webref) {
+        this.webref.injectJavaScript(run);
+      }
+    }, 7000);
     return (
       <Container>
         {this.state.loading ? loadingDiv : null}
         <WebView
+          ref={(r) => (this.webref = r)}
           source={{uri: uri}}
           onLoad={()=>{  }}
           onLoadEnd={()=>{this.setState({loading: false})}}
