@@ -24,24 +24,18 @@ class MyHeader extends Component {
       <Button transparent onPress={()=>{this.props.uiState.navigation.goBack()}}>
         <Icon name='chevron-back-outline' />
       </Button>)
-    const webtest = (
-      <Button transparent onPress={()=>{this.props.uiState.navigation.push("MyWebView",{uri:'https://www.yahoo.co.jp/'})}}>
-        <Icon name='home' />
-      </Button>)
     var type = 'menu'
     if (this.props.uiState.routeName == 'About' ||
       this.props.uiState.routeName == 'Settings' ||
       this.props.uiState.routeName == 'MyWebView') {
       type = 'back'
-    } else if (this.props.uiState.routeName == 'zAbout') {
-      type = 'webtest'
     }
     return (
       <Header>
-        <Left>{type=='back' ? back : type=='webtest' ? webtest : menu}</Left>
+        <Left>{type=='back' ? back : menu}</Left>
         <Body>
           <Title>SUPERNN.NET</Title>
-          <Subtitle><Text>5chニュース速報</Text></Subtitle>
+          <Subtitle>5chニュース速報</Subtitle>
         </Body>
         <Right />
       </Header>

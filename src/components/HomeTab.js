@@ -49,6 +49,8 @@ class HomeTab extends Component {
     }
     var params = {}
     params = {limit: 25, page: 1}
+    //board_name = this.props.boardName
+    board_name = 'newsplus'
     return (
       <Container>
         <Content refreshControl={
@@ -71,7 +73,8 @@ class HomeTab extends Component {
           dataArray={data}
           renderRow={(item) =>
             <ListItem onPress={()=>{
-              this.props.navigation.push("MyWebView",{uri:'https://www.yahoo.co.jp/'})}}>
+              this.props.navigation.push("MyWebView",
+                {uri:'https://asahi.5ch.net/test/read.cgi/'+board_name+'/'+item.tid+'/-100'})}}>
               <Text>{item.title}</Text>
             </ListItem>
           }

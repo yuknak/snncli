@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
+import { Platform } from 'react-native'
+import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle,Spinner } from 'native-base';
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
 
@@ -15,6 +16,7 @@ class MyWebView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false
     }
   }
   componentDidMount() {
@@ -28,10 +30,26 @@ class MyWebView extends Component {
   }
   render() {
     var uri = this.props.route.params.uri
+    var loadingDiv = (<Spinner color='black'/>)
+    const icon = Platform.select({
+      ios: (<Icon name="close"/>),
+      android: (<Icon style={{color: 'white'}} name="close"/>),
+    });
     return (
-      <>
-      <WebView source={{uri: uri}} />
-      </>
+      <Container>
+        {this.state.loading ? loadingDiv : null}
+        <WebView
+          source={{uri: uri}}
+          onLoad={()=>{  }}
+          onLoadEnd={()=>{this.setState({loading: false})}}
+          onLoadStart={()=>{this.setState({loading: true})}}
+        />
+        <Footer>
+          <Button transparent onPress={()=>{this.props.navigation.goBack()}}>
+            {icon}
+          </Button>
+        </Footer>
+      </Container>
     );
   }
 }
