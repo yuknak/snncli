@@ -4,12 +4,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem } from 'native-base';
-import HomeHeader from './MyHeader'
 import { Alert, RefreshControl,View } from "react-native";
 import * as apiState from '../redux/ApiState'
-import reducer, * as appState from '../redux/AppState'
-import * as uiState from '../redux/UiState'
-import { formatDate } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
 
@@ -39,8 +35,6 @@ class HomeTab extends Component {
   }
   componentWillUnmount(){
   }
-
-  //https://asahi.5ch.net/test/read.cgi/newsplus/1608166501/-100
 
   render() {
     var data = null
@@ -100,14 +94,6 @@ const mapDispatchToProps = dispatch => {
   return {
     api: (params,success,error) =>
       dispatch(apiState.api(params,success,error)),
-    /*
-    selectMarket: (market) =>
-      dispatch(uiState.selectMarket(market)),
-    selectOrder: (market, order) =>
-      dispatch(uiState.selectOrder(market, order)),
-    showAlert: (variant, message) =>
-      dispatch(uiState.showAlert(variant, message)),
-    */
   }
 }
 ////////////////////////////////////////////////////////////////////////////////

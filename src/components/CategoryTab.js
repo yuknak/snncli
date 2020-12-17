@@ -68,8 +68,9 @@ class CategoryTab extends Component {
         <List
           dataArray={data}
           renderRow={(item) =>
-
-            <ListItem>
+            <ListItem onPress={()=>{
+              this.props.navigation.push("MyWebView",
+                {uri:'https://asahi.5ch.net/test/read.cgi/'+board_name+'/'+item.tid+'/-100'})}}>
               <Text>{item.title}</Text>
             </ListItem>
           }
