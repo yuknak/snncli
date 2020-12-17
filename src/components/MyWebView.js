@@ -39,6 +39,7 @@ class MyWebView extends Component {
     });
     // Remove ads
     const runFirst = `
+      window.isNativeApp = true;
       function clean() {
         var len = 0;
         len = document.getElementsByClassName("js-overlay_ad").length;
@@ -84,20 +85,36 @@ class MyWebView extends Component {
           elem.remove();
         }
       }
-      var timer = setInterval(clean, 100);
+      var timer = setInterval(clean, 500);
       true;
     `;
+    setTimeout(() => {
+      // for android
+      if (this.webref) {
+        this.webref.injectJavaScript(runFirst);
+      }
+    }, 1500);
+    const webview = Platform.select({
+      ios: (<WebView
+        injectedJavaScriptBeforeContentLoaded={runFirst}
+        injectedJavaScriptBeforeContentLoadedForMainFrameOnly={true}
+        source={{uri: uri}}
+        onLoad={()=>{  }}
+        onLoadEnd={()=>{this.setState({loading: false})}}
+        onLoadStart={()=>{this.setState({loading: true})}}
+      />),
+      android: (<WebView
+        ref={(r) => (this.webref = r)}
+        source={{uri: uri}}
+        onLoad={()=>{  }}
+        onLoadEnd={()=>{this.setState({loading: false})}}
+        onLoadStart={()=>{this.setState({loading: true})}}
+      />),
+    });
     return (
       <Container>
         {this.state.loading ? loadingDiv : null}
-        <WebView
-          onMessage={(event) => {}}
-          injectedJavaScript={runFirst}
-          source={{uri: uri}}
-          onLoad={()=>{  }}
-          onLoadEnd={()=>{this.setState({loading: false})}}
-          onLoadStart={()=>{this.setState({loading: true})}}
-        />
+        {webview}
         <Footer>
           <Button transparent onPress={()=>{this.props.navigation.goBack()}}>
             {icon}
