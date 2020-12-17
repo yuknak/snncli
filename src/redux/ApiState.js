@@ -3,6 +3,7 @@
 import axios from 'axios'
 import Action from './Action'
 import { dispatchAppSuccess, dispatchAppError } from './AppState'
+import { Platform } from 'react-native'
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +68,15 @@ export const api = (params, success_func=()=>{}, error_func=()=>{}) => {
   // in the same domain and possibly you config CORS stuff in barong.
   //params.withCredentials = true 
   //params.baseURL = window.location.origin + '/api/v2'
-  params.baseURL = "http://172.16.215.31:3000/api/v1"
+
+  const tmpUrl = Platform.select({
+    ios: 'http://udev:3000/api/v1',
+    android: 'http://localhost:3000/api/v1',
+  });
+
+  //params.baseURL = "http://172.16.215.31:3000/api/v1"
+  params.baseURL = tmpUrl
+  
   params.validateStatus = function (status) { // we can overwrite what is success
     return status >= 200 && status < 300; // but, use default behavior
   }
