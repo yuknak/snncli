@@ -3,10 +3,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Content, Text,List,ListItem } from 'native-base';
+import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
 import { Alert, RefreshControl,View } from "react-native";
 import * as apiState from '../redux/ApiState'
-import { brandColors, formatDate, formatEpoch, listItemStyles } from '../lib/Common';
+import { brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
 
@@ -64,6 +64,21 @@ class HomeTab extends Component {
           }
           } /> }
         >
+        <List>
+        <ListItem icon>
+        <Left>
+          <Button>
+            <Icon name="newspaper" />
+          </Button>
+        </Left>
+        <Body>
+          <Text>{this.props.title}</Text>
+        </Body>
+        <Right>
+        </Right>
+        </ListItem>
+        </List>
+
         <List
           dataArray={data}
           renderRow={(item) =>

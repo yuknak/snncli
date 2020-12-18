@@ -3,14 +3,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Content, List,ListItem,Text } from 'native-base';
-import HomeHeader from './MyHeader'
-import { Alert, RefreshControl,View } from "react-native";
+import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
+import { Alert, RefreshControl  } from "react-native";
 import * as apiState from '../redux/ApiState'
-import reducer, * as appState from '../redux/AppState'
-import * as uiState from '../redux/UiState'
-import { formatDate } from '../lib/Common';
-import { brandColors,listItemStyles,formatEpoch } from '../lib/Common';
+import { brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
 
@@ -50,23 +46,37 @@ class CategoryTab extends Component {
     params = {per_page: 50}
     return (
       <Container>
-      { /* <HomeHeader {...this.props} /> */ }
-        <Content refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={()=>{             
-              this.setState({refreshing: true})
-              this.props.api({
-                method: 'get',
-                url: '/thread/'+this.props.boardName,
-                params: {limit: 50, page: 1},
-                noLoading: true
-              }, ()=>{ 
-                this.setState({refreshing: false})
-              })
-          }
-          } /> }
-        >
+      <Content refreshControl={
+        <RefreshControl
+          refreshing={this.state.refreshing}
+          onRefresh={()=>{             
+            this.setState({refreshing: true})
+            this.props.api({
+              method: 'get',
+              url: '/thread/'+this.props.boardName,
+              params: {limit: 50, page: 1},
+              noLoading: true
+            }, ()=>{ 
+              this.setState({refreshing: false})
+            })
+          }} />
+        }
+      >
+        <List>
+        <ListItem icon>
+        <Left>
+          <Button style={listHeaderStyles(this.props.boardName)}>
+            <Icon name="newspaper" />
+          </Button>
+        </Left>
+        <Body>
+          <Text>{this.props.title}</Text>
+        </Body>
+        <Right>
+        </Right>
+        </ListItem>
+        </List>
+
         <List
           dataArray={data}
           renderRow={(item) =>
@@ -84,9 +94,9 @@ class CategoryTab extends Component {
             </ListItem>
           }
           keyExtractor={(item, index) => index.toString()}
-          />
-          </Content>
-        </Container>
+        />
+      </Content>
+      </Container>
     )
   }
 }

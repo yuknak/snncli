@@ -18,7 +18,7 @@ class Category extends Component {
     }
   } 
   componentDidMount() {
-    this.props.initState('test2') // TODO:
+    this.props.initState('test3') // TODO:
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
     });

@@ -31,23 +31,30 @@ export const brandColors = {
 ////////////////////////////////////////////////////////////////////////////////
 // taken from 2nn.jp
 export const categoryColors = {
-  newsplus: '#0E6FB9',
-  mnewsplus: '#E98514',
-  bizplus: '#0DA95C',
-  news4plus: '#E83E2F',
-  news5plus: '#00A1E9',
-  seijinewsplus: '#0E6FB9',
-  moeplus: '#DB0D75', // same
-  idolplus: '#DB0D75', // same
-  scienceplus: '#D0C7B8',
-  femnewsplus: '#D6AE59',
-  dqnplus: '#947EB8',
+  "newsplus": '#0E6FB9',
+  "mnewsplus": '#E98514',
+  "bizplus": '#0DA95C',
+  "news4plus": '#E83E2F',
+  "news5plus": '#00A1E9',
+  "seijinewsplus": '#0E6FB9',
+  "moeplus": '#DB0D75', // same
+  "idolplus": '#DB0D75', // same
+  "scienceplus": '#D0C7B8',
+  "femnewsplus": '#D6AE59',
+  "dqnplus": '#947EB8',
+  "top": 'gray',  
+  "latest": 'gray',  
+}
+
+export function listHeaderStyles(name) {
+  color = categoryColors[name]
+  return {backgroundColor: color}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Format iso8601 date in localtime
 // TODO: rewrite by Moment
-
+/*
 export function formatDate(date_iso8601, format) {
   var date = new Date(Date.parse(date_iso8601));
   //if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
@@ -65,7 +72,7 @@ export function formatDate(date_iso8601, format) {
   }
   return format;
 };
-
+*/
 export function formatEpoch(epoch) {
   var t = Moment.unix(epoch)
   return Moment.tz(t,'Asia/Tokyo').format('MM/DD HH:mm')
