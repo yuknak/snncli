@@ -67,7 +67,9 @@ class SettingsTab extends Component {
         <Content>
           <Card>
             <List>
+            <ListItem itemDivider><Text>カテゴリ表示する掲示板(最低3つ)</Text></ListItem>
               {itemList}
+            <ListItem itemDivider/>
             </List>
             </Card>
           </Content>

@@ -9,13 +9,13 @@ import { Tabs, Tab, Container, Header, Title, Content, Footer, FooterTab, Button
 import HomeHeader from './MyHeader'
 import HomeTab from './HomeTab';
 import { Alert, RefreshControl,View } from "react-native";
+import Test from './Test.js'
 
 ////////////////////////////////////////////////////////////////////////////////
 
 var board_list = [
-  {title: "総合", key:"general"},
+  {title: "トップ", key:"top"},
   {title: "最新", key:"latest"},
-  {title: "ホット", key:"hot"},
 ]
 
 ////////////////////////////////////////////////////////////////////////////////

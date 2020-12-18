@@ -3,13 +3,14 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Content, Text,List,ListItem } from 'native-base';
+import { Container, Content, List,ListItem,Text } from 'native-base';
 import HomeHeader from './MyHeader'
 import { Alert, RefreshControl,View } from "react-native";
 import * as apiState from '../redux/ApiState'
 import reducer, * as appState from '../redux/AppState'
 import * as uiState from '../redux/UiState'
 import { formatDate } from '../lib/Common';
+import { brandColors,listItemStyles,formatEpoch } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
 
@@ -27,11 +28,12 @@ class CategoryTab extends Component {
     }
   }
   componentDidMount() {
-    //Alert.alert('test')
+    //Alert.alert('test'+brandDanger)
+    this.setState({refreshing: true})
     this.props.api({
       method: 'get',
-      url: '/thread',
-      params: {limit: 25, page: 1},
+      url: '/thread/'+this.props.boardName,
+      params: {per_page: 50},
       noLoading: true
     }, ()=>{ 
       this.setState({refreshing: false})
@@ -45,7 +47,7 @@ class CategoryTab extends Component {
       data = this.props.appState.recs['get:/thread/'+this.props.boardName].data.data
     }
     var params = {}
-    params = {limit: 25, page: 1}
+    params = {per_page: 50}
     return (
       <Container>
       { /* <HomeHeader {...this.props} /> */ }
@@ -57,7 +59,7 @@ class CategoryTab extends Component {
               this.props.api({
                 method: 'get',
                 url: '/thread/'+this.props.boardName,
-                params: {limit: 25, page: 1},
+                params: {limit: 50, page: 1},
                 noLoading: true
               }, ()=>{ 
                 this.setState({refreshing: false})
@@ -68,11 +70,17 @@ class CategoryTab extends Component {
         <List
           dataArray={data}
           renderRow={(item) =>
-            <ListItem onPress={()=>{
+            <ListItem style={listItemStyles} onPress={()=>{
               this.props.navigation.push("MyWebView",
                 {uri:'https://'+this.props.serverName+
                   '/test/read.cgi/'+this.props.boardName+'/'+item.tid+'/-100'})}}>
-              <Text>{item.title}</Text>
+              <Text>
+                 <Text>{formatEpoch(item.tid)}&nbsp;</Text>
+                <Text style={{color: brandColors.brandSuccess}}>{item.res_cnt}res&nbsp;</Text>
+                <Text style={{color: brandColors.brandDanger}}>{item.res_speed}res/h&nbsp;</Text>
+                <Text style={{color: brandColors.brandInfo}}>{Math.round(parseFloat(item.res_percent*10000))/100}%&nbsp;</Text>
+                <Text>{item.title}</Text>
+              </Text>
             </ListItem>
           }
           keyExtractor={(item, index) => index.toString()}

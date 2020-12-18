@@ -30,14 +30,13 @@ class Search extends Component {
       <Header searchBar rounded>
         <Item>
           <Icon name="ios-search" />
-          <Input placeholder="Search" />
+          <Input placeholder="掲示板検索" />
           <Icon name="ios-people" />
         </Item>
         <Button transparent>
           <Text>Search</Text>
         </Button>
         </Header>
-      <FlatListDropDown/>
       <Content>
       </Content>
       </Container>

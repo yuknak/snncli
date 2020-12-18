@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem } from 'native-base';
 import { Alert, RefreshControl,View } from "react-native";
 import * as apiState from '../redux/ApiState'
+import { brandColors, formatDate, formatEpoch, listItemStyles } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
 
@@ -26,8 +27,8 @@ class HomeTab extends Component {
     //Alert.alert('test')
     this.props.api({
       method: 'get',
-      url: '/thread',
-      params: {limit: 25, page: 1},
+      url: '/thread/newsplus',
+      params: {per_page: 50},
       noLoading: true
     }, ()=>{ 
       this.setState({refreshing: false})
@@ -38,11 +39,11 @@ class HomeTab extends Component {
 
   render() {
     var data = null
-    if (this.props.appState.recs['get:/thread']) {
-      data = this.props.appState.recs['get:/thread'].data.data
+    if (this.props.appState.recs['get:/thread/newsplus']) {
+      data = this.props.appState.recs['get:/thread/newsplus'].data.data
     }
     var params = {}
-    params = {limit: 25, page: 1}
+    params = {limit: 50, page: 1}
     //board_name = this.props.boardName
     board_name = 'newsplus'
     return (
@@ -54,8 +55,8 @@ class HomeTab extends Component {
               this.setState({refreshing: true})
               this.props.api({
                 method: 'get',
-                url: '/thread',
-                params: {limit: 25, page: 1},
+                url: '/thread/newsplus',
+                params: {per_page: 50},
                 noLoading: true
               }, ()=>{ 
                 this.setState({refreshing: false})
@@ -66,10 +67,16 @@ class HomeTab extends Component {
         <List
           dataArray={data}
           renderRow={(item) =>
-            <ListItem onPress={()=>{
+            <ListItem style={listItemStyles} onPress={()=>{
               this.props.navigation.push("MyWebView",
-                {uri:'https://asahi.5ch.net/test/read.cgi/'+board_name+'/'+item.tid+'/-100'})}}>
-              <Text>{item.title}</Text>
+                {uri:'https://asahi.5ch.net/test/read.cgi/newsplus/'+item.tid+'/-100'})}}>
+              <Text>
+                <Text>{formatEpoch(item.tid)}&nbsp;</Text>
+                <Text style={{color: brandColors.brandSuccess}}>{item.res_cnt}res&nbsp;</Text>
+                <Text style={{color: brandColors.brandDanger}}>{item.res_speed}res/h&nbsp;</Text>
+                <Text style={{color: brandColors.brandInfo}}>{Math.round(parseFloat(item.res_percent*10000))/100}%&nbsp;</Text>
+                <Text>{item.title}</Text>
+              </Text>
             </ListItem>
           }
           keyExtractor={(item, index) => index.toString()}
