@@ -18,7 +18,7 @@ class Category extends Component {
     }
   } 
   componentDidMount() {
-    this.props.initState('test1') // TODO:
+    this.props.initState('test2') // TODO:
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
     });
@@ -28,6 +28,9 @@ class Category extends Component {
   }
   render() {
     var tabList = []
+    if (!this.props.uiState.settings||!this.props.uiState.settings.boards) {
+      return null
+    }
     this.props.uiState.settings.boards.forEach((item)=> {
       if (item.enable) {
         tabList.push(
