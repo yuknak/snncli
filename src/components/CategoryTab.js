@@ -41,8 +41,8 @@ class CategoryTab extends Component {
   }
   render() {
     var data = null
-    if (this.props.appState.recs['get:/thread']) {
-      data = this.props.appState.recs['get:/thread'].data.data
+    if (this.props.appState.recs['get:/thread/'+this.props.boardName]) {
+      data = this.props.appState.recs['get:/thread/'+this.props.boardName].data.data
     }
     var params = {}
     params = {limit: 25, page: 1}
@@ -56,7 +56,7 @@ class CategoryTab extends Component {
               this.setState({refreshing: true})
               this.props.api({
                 method: 'get',
-                url: '/thread',
+                url: '/thread/'+this.props.boardName,
                 params: {limit: 25, page: 1},
                 noLoading: true
               }, ()=>{ 
@@ -70,7 +70,8 @@ class CategoryTab extends Component {
           renderRow={(item) =>
             <ListItem onPress={()=>{
               this.props.navigation.push("MyWebView",
-                {uri:'https://asahi.5ch.net/test/read.cgi/'+board_name+'/'+item.tid+'/-100'})}}>
+                {uri:'https://'+this.props.serverName+
+                  '/test/read.cgi/'+this.props.boardName+'/'+item.tid+'/-100'})}}>
               <Text>{item.title}</Text>
             </ListItem>
           }

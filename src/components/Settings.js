@@ -3,15 +3,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
-import { Formik} from 'formik'
+import { Formik } from 'formik'
 
 import { Container, Content, Button, Left, Right, Body, Text,Icon,List,ListItem,Switch,Grid,Col,Card } from 'native-base'
 
 ////////////////////////////////////////////////////////////////////////////////
 
 class SettingItem extends Component {
-
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
+  }
+  render() {
+    return (
+      <ListItem icon>
+      <Left></Left>
+      <Body>
+        <Text>ニュー速</Text>
+      </Body>
+      <Right>
+        <Switch value={false} />
+      </Right>
+      </ListItem>
+    )
+  }
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 class SettingsTab extends Component {
   constructor(props) {
@@ -33,96 +52,7 @@ class SettingsTab extends Component {
       <Content>
         <Card>
           <List>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
-          <ListItem icon>
-            <Left></Left>
-            <Body>
-              <Text>ニュー速</Text>
-            </Body>
-            <Right>
-              <Switch value={false} />
-            </Right>
-          </ListItem>
+            <SettingItem/>
           </List>
           </Card>
         </Content>

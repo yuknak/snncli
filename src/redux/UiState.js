@@ -9,17 +9,36 @@ import Action from './Action'
 // it will be reinitialized for security.
 
 const initialState = {
-  version: 1,
   sessionUid: '',     // User id (if changed, total state will be re-inited)
   alertMessage: '',   // Bootstrap4 Alert message body if empty, l'l be erased.
   alertVariant: '',   // Bootstrap4 Alert warning, error ... etc.
   loading: false,     // Bootstrap4 Spinner placed in center of screen
   navigation: null,   // to control react navigation globally
   routeName: '',      // to get global state of react navigation
-  category: {
-    maxItems: 25,
+  settings: {
     boards: [
-      {name: "", enabled: true},
+      {title_cached: "ニュー速", name:"newsplus",
+        server_name_cached:"asahi.5ch.net",enable:true},
+      {title_cached: "芸スポ", name:"mnewsplus",
+        server_name_cached:"hayabusa9.5ch.net",enable:true},
+      {title_cached: "東アジア", name:"news4plus",
+        server_name_cached:"lavender.5ch.net",enable:true},
+      {title_cached: "ビジネス", name:"bizplus",
+        server_name_cached:"egg.5ch.net",enable:true},
+      {title_cached: "政治", name:"seijinewsplus",
+        server_name_cached:"fate.5ch.net",enable:true},
+      {title_cached: "国際", name:"news5plus",
+        server_name_cached:"egg.5ch.net",enable:true},
+      {title_cached: "科学", name:"scienceplus",
+        server_name_cached:"egg.5ch.net",enable:true},
+      {title_cached: "ローカル", name:"femnewsplus",
+        server_name_cached:"egg.5ch.net",enable:true},
+      {title_cached: "萌え", name:"moeplus",
+        server_name_cached:"egg.5ch.net",enable:true},
+      {title_cached: "アイドル", name:"idolplus",
+        server_name_cached:"asahi.5ch.net",enable:true},
+      {title_cached: "痛い", name:"dqnplus",
+        server_name_cached:"egg.5ch.net",enable:true},
     ],
   }
 }

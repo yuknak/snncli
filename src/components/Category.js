@@ -11,22 +11,6 @@ import * as apiState from '../redux/ApiState'
 
 ////////////////////////////////////////////////////////////////////////////////
 
-var board_list = [
-  {title: "ニュー速", key:"newsplus"},
-  {title: "芸スポ", key:"mnewsplus"},
-  {title: "東アジア", key:"news4plus"},
-  {title: "ビジネス", key:"bizplus"},
-  {title: "政治", key:"seijinewsplus"},
-  {title: "国際", key:"news5plus"},
-  {title: "科学", key:"scienceplus"},
-  {title: "ローカル", key:"femnewsplus"},
-  {title: "萌え", key:"moeplus"},
-  {title: "アイドル", key:"idolplus"},
-  {title: "痛い", key:"dqnplus"},
-]
-
-////////////////////////////////////////////////////////////////////////////////
-
 class Category extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +18,8 @@ class Category extends Component {
     }
   } 
   componentDidMount() {
+    this.props.initState('test1')
+    //Alert.alert("debug", JSON.stringify(this.props.uiState))
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
     });
@@ -43,10 +29,14 @@ class Category extends Component {
   }
   render() {
     var tabList = []
-    board_list.forEach((item)=> {
+    this.props.uiState.settings.boards.forEach((item)=> {
       tabList.push(
-        <Tab key={item.key} heading={item.title}>
-          <CategoryTab boardName={item.key} title={item.title} {...this.props}/>
+        <Tab key={item.name} heading={item.title_cached}>
+          <CategoryTab
+            boardName={item.name}
+            title={item.title_cached}
+            serverName={item.server_name_cached}
+            {...this.props}/>
         </Tab>
       )
     })
@@ -70,6 +60,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    initState: (sessionUid) =>
+      dispatch(uiState.initState(sessionUid)),
     setNavigation: (navigation,routeName) =>
       dispatch(uiState.setNavigation(navigation,routeName)),
   }

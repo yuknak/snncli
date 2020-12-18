@@ -71,7 +71,7 @@ export const api = (params, success_func=()=>{}, error_func=()=>{}) => {
 
   const tmpUrl = Platform.select({
     ios: 'http://udev:3000/api/v1',
-    android: 'http://localhost:3000/api/v1',
+    android: 'http://172.18.0.1:3000/api/v1',
   });
 
   //params.baseURL = "http://172.16.215.31:3000/api/v1"
