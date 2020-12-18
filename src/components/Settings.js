@@ -14,19 +14,29 @@ class SettingsTab extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      settings: null
     }
+    //this.setState({settings: { ...this.props.uiState.settings }})
+    //Alert.alert('',JSON.stringify(this.props.uiState.settings))
   }
   componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
     });
+    this._unsubscribe2 = this.props.navigation.addListener('blur', () => {
+      //this.props.updateSettings(this.state.settings)
+    });
   }
   componentWillUnmount() {
     this._unsubscribe()
+    this._unsubscribe2()
   }
   render() {
-    var settings = { ...this.props.uiState.settings }
     var itemList = []
+    if (!this.state.settings||!this.state.settings.boards) {
+      return null
+    }
+    var settings = {...this.state.settings}
     settings.boards.forEach((item)=> {
       itemList.push(
         <ListItem icon key={item.name}>
@@ -48,14 +58,13 @@ class SettingsTab extends Component {
               if (cnt < 3) {
                 Alert.alert('', '最低3つONにしてください')
                 item.enable = prev_value
-                if (cnt <= 1) {
-                  settings.boards[0].enable = true
-                  settings.boards[1].enable = true
-                  settings.boards[2].enable = true
-                  this.props.updateSettings(settings)
-                }
+                this.setState({settings: settings})
+                //if (cnt <= 1) {
+                  //settings.boards[0].enable = true
+                  //settings.boards[1].enable = true
+                  //settings.boards[2].enable = true
+                //}
               } else {
-                this.props.updateSettings(settings)
               }
             }}/>
         </Right>
