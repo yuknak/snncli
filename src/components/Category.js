@@ -18,8 +18,7 @@ class Category extends Component {
     }
   } 
   componentDidMount() {
-    this.props.initState('test1')
-    //Alert.alert("debug", JSON.stringify(this.props.uiState))
+    this.props.initState('test1') // TODO:
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
     });
@@ -30,15 +29,17 @@ class Category extends Component {
   render() {
     var tabList = []
     this.props.uiState.settings.boards.forEach((item)=> {
-      tabList.push(
-        <Tab key={item.name} heading={item.title_cached}>
-          <CategoryTab
-            boardName={item.name}
-            title={item.title_cached}
-            serverName={item.server_name_cached}
-            {...this.props}/>
-        </Tab>
-      )
+      if (item.enable) {
+        tabList.push(
+          <Tab key={item.name} heading={item.title_cached}>
+            <CategoryTab
+              boardName={item.name}
+              title={item.title_cached}
+              serverName={item.server_name_cached}
+              {...this.props}/>
+          </Tab>
+        )
+      }
     })
     return (
       <Container>

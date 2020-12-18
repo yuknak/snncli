@@ -73,8 +73,9 @@ export default function reducer(state=initialState, action) {
     case Action.UI_LOADING_END:      
       return { ...state, loading: false }
     case Action.UI_SET_NAVIGATION:
-      console.debug('OUT')
       return { ...state, navigation: action.navigation, routeName: action.routeName }
+    case Action.UI_UPDATE_SETTINGS:
+      return { ...state, settings: action.settings }
     default:
       return state;
   }
@@ -103,5 +104,8 @@ export function setNavigation(navigation, routeName) {
   return ({type: Action.UI_SET_NAVIGATION,
     navigation: navigation, routeName: routeName})
 }
-
+export function updateSettings(settings) {
+  return ({type: Action.UI_UPDATE_SETTINGS,
+    settings: settings,})
+}
 ////////////////////////////////////////////////////////////////////////////////
