@@ -14,8 +14,6 @@ export default {
   APP_AUTH_ERROR:  'APP_AUTH_ERROR',
   APP_REC:         'APP_REC',
   APP_RECS:        'APP_RECS',
-  APP_WALLETS:     'APP_WALLETS',
-  APP_WALLETS_QR:  'APP_WALLETS_QR',
  
   // UiState
   UI_INIT_STATE:    'UI_INIT_STATE',

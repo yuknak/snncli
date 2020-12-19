@@ -24,57 +24,8 @@ const initialState = {
           //      total: 165
           //      }, ...
           //   }
-  wallets: [], // { [{id:...,currency:...,balance:...,address:}]}
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Merge data (3 kinds and wallets.qr_data_url) into wallets
-function buildWallets(state)
-{
-  var wallets = []
-  var currencies = state.recs['get:/peatio/public/currencies']
-  var balances = state.recs['get:/peatio/account/balances']
-  if (currencies && currencies.data &&
-      balances && balances.data) {
-    var balance = null
-    currencies.data.forEach(currency => {
-      balances.data.some(bal => {
-        if (bal.currency == currency.id) {
-          balance = bal
-          return true
-        }
-      })
-      var addressObj = null
-      if (state.rec['get:/peatio/account/deposit_address/'+currency.id]) {
-        addressObj = state.rec['get:/peatio/account/deposit_address/'+currency.id]
-      }
-      var wallet = state.wallets.find(rec => rec.id == currency.id)
-      var qrObj = {} // Get qr_data_url from wallets if it remains
-      if (wallet && wallet.qr_data_url) {
-        qrObj = {qr_data_url: wallet.qr_data_url}
-      }
-      // Merge
-      wallets.push(Object.assign(balance, currency, addressObj, qrObj))
-    })
-  }  
-  return wallets
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Update a wallet (in order to fill in qr_data_url from address)
-
-function updateWallet(state, wallet)
-{
-  var wallets = []
-  state.wallets.forEach(wallet_rec => {
-    if (wallet_rec.id == wallet.id) {
-      wallets.push(Object.assign(wallet))
-    } else {
-      wallets.push(Object.assign(wallet_rec))
-    }
-  })
-  return wallets
-}
 ////////////////////////////////////////////////////////////////////////////////
 
 export default function reducer(state=initialState, action) {
@@ -95,10 +46,6 @@ export default function reducer(state=initialState, action) {
           ...state.recs, 
           [action.name]:action.response// array data
         }}
-    case Action.APP_WALLETS: // build wallets by using already existing data.
-      return { ...state, wallets: buildWallets(state) }
-    case Action.APP_WALLETS_QR: // put qr_code_url in wallets
-      return { ...state, wallets: updateWallet(state, action.wallet) }
     default:
       console.log("AppState reducer: default case called.")
       return state;
@@ -131,24 +78,10 @@ export const dispatchAppSuccess = (dispatch, name, response) => {
 
   // RECS: Returns multiple records(table) with paging info.
   } else if (
-    name.startsWith('get:/thread')||
-    name.startsWith('get:/barong/resource/users/activity')||
-    name.startsWith('get:/peatio/account/balances')||
-    name.startsWith('get:/peatio/public/currencies')||
-    name.startsWith('get:/peatio/market/trades')||
-    name.startsWith('get:/peatio/market/orders')
+    name.startsWith('get:/thread')
     ) {
     dispatch({type: Action.APP_RECS, response: response, name: name})
   
-  }
-
-  // Build wallets ( A process after / in addtion to REC or RECS)
-  if (
-    name.startsWith('get:/peatio/account/deposit_address/')||
-    name.startsWith('get:/peatio/account/balances')||
-    name.startsWith('get:/peatio/public/currencies')
-  ) {
-    dispatch({type: Action.APP_WALLETS})
   }
 
 }
@@ -180,33 +113,6 @@ export const dispatchAppError = (dispatch, name, errResponse) => {
       // void
     }
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Asynchronically generate and fill in wallets.qr_data_url
-// by using QRCode lib,
-// simply convert wallets.address to wallets.qr_data_url
-// this should be done asynchronically because of QRCode lib I/F.
-
-export const updateWallets = (wallets) => {
-  if (!wallets) {
-    return
-  }
-  /*
-  return dispatch => {
-    wallets.forEach(async wallet => { // async
-      var qr_data_url = null
-      if (wallet.address && wallet.address.length > 0) {
-        qr_data_url = await QRCode.toDataURL(wallet.address) //await
-        if (qr_data_url) {
-          wallet['qr_data_url'] = qr_data_url
-          // data updating must be done by reducer
-          dispatch({type: Action.APP_WALLETS_QR, wallet: wallet})  
-        }
-      }
-    })
-  }
-  */
 }
 
 ////////////////////////////////////////////////////////////////////////////////

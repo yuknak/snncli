@@ -9,6 +9,12 @@ import * as apiState from '../redux/ApiState'
 
 import { WebView } from 'react-native-webview';
 import { Alert } from 'react-native';
+import { YellowBox } from 'react-native'
+
+YellowBox.ignoreWarnings([
+  'shouldStartLoad', // TODO: Remove when fixed
+  'startLoadWithResult',
+])
 
 ////////////////////////////////////////////////////////////////////////////////
 

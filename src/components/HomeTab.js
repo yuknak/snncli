@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
 import { Alert, RefreshControl,View } from "react-native";
 import * as apiState from '../redux/ApiState'
-import { brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
+import { listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
 
@@ -24,10 +24,10 @@ class HomeTab extends Component {
     }
   }
   componentDidMount() {
-    //Alert.alert('test')
+    this.setState({refreshing: true})
     this.props.api({
       method: 'get',
-      url: '/thread/newsplus',
+      url: '/thread/'+this.props.boardName,
       params: {per_page: 50},
       noLoading: true
     }, ()=>{ 
@@ -36,16 +36,16 @@ class HomeTab extends Component {
   }
   componentWillUnmount(){
   }
-
   render() {
     var data = null
-    if (this.props.appState.recs['get:/thread/newsplus']) {
-      data = this.props.appState.recs['get:/thread/newsplus'].data.data
+    if (this.props.appState.recs['get:/thread/'+this.props.boardName]) {
+      data = this.props.appState.recs['get:/thread/'+this.props.boardName].data.data
+    }
+    if (!data) {
+      return null
     }
     var params = {}
-    params = {limit: 50, page: 1}
-    //board_name = this.props.boardName
-    board_name = 'newsplus'
+    params = {per_page: 50}
     return (
       <Container>
         <Content refreshControl={
@@ -55,7 +55,7 @@ class HomeTab extends Component {
               this.setState({refreshing: true})
               this.props.api({
                 method: 'get',
-                url: '/thread/newsplus',
+                url: '/thread/'+this.props.boardName,
                 params: {per_page: 50},
                 noLoading: true
               }, ()=>{ 
@@ -84,13 +84,14 @@ class HomeTab extends Component {
           renderRow={(item) =>
             <ListItem style={listItemStyles} onPress={()=>{
               this.props.navigation.push("MyWebView",
-                {uri:'https://asahi.5ch.net/test/read.cgi/newsplus/'+item.tid+'/-100'})}}>
+                {uri:'https://'+item.board.server.name+'/test/read.cgi/'+item.board.name+'/'+item.tid+'/-100'})}}>
               <Text>
+                <Text style={listCategoryStyles(item.board.name)}>★</Text>
                 <Text>{formatEpoch(item.tid)}&nbsp;</Text>
                 <Text style={{color: brandColors.brandSuccess}}>{item.res_cnt}res&nbsp;</Text>
                 <Text style={{color: brandColors.brandDanger}}>{item.res_speed}res/h&nbsp;</Text>
                 <Text style={{color: brandColors.brandInfo}}>{Math.round(parseFloat(item.res_percent*10000))/100}%&nbsp;</Text>
-                <Text>{item.title}</Text>
+                <Text>{replaceTitle(item.title)}</Text>
               </Text>
             </ListItem>
           }

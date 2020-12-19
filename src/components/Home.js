@@ -15,7 +15,10 @@ import Test from './Test.js'
 
 var board_list = [
   {title: "トップ", key:"top"},
-  {title: "最新", key:"latest"},
+  {title: "新着", key:"latest"},
+  {title: "今日", key:"today"},
+  {title: "昨日", key:"yesterday"},
+  {title: "祭級", key:"festival"},
 ]
 
 ////////////////////////////////////////////////////////////////////////////////

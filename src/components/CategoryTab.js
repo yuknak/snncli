@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
 import { Alert, RefreshControl  } from "react-native";
 import * as apiState from '../redux/ApiState'
-import { brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
+import { formatDatetime,listCategoryStyles,replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
 
@@ -24,7 +24,6 @@ class CategoryTab extends Component {
     }
   }
   componentDidMount() {
-    //Alert.alert('test'+brandDanger)
     this.setState({refreshing: true})
     this.props.api({
       method: 'get',
@@ -39,8 +38,13 @@ class CategoryTab extends Component {
   }
   render() {
     var data = null
+    var board = null
     if (this.props.appState.recs['get:/thread/'+this.props.boardName]) {
       data = this.props.appState.recs['get:/thread/'+this.props.boardName].data.data
+      board = this.props.appState.recs['get:/thread/'+this.props.boardName].data.board
+    }
+    if (!data || !board) {
+      return null
     }
     var params = {}
     params = {per_page: 50}
@@ -73,6 +77,7 @@ class CategoryTab extends Component {
           <Text>{this.props.title}</Text>
         </Body>
         <Right>
+          <Text style={{fontSize: 12}}>更新:{formatDatetime(board.mirrored_at)} 時速:{board.res_speed}res/h</Text>
         </Right>
         </ListItem>
         </List>
@@ -85,11 +90,12 @@ class CategoryTab extends Component {
                 {uri:'https://'+this.props.serverName+
                   '/test/read.cgi/'+this.props.boardName+'/'+item.tid+'/-100'})}}>
               <Text>
-                 <Text>{formatEpoch(item.tid)}&nbsp;</Text>
+                <Text style={listCategoryStyles(this.props.boardName)}>★</Text>
+                <Text>{formatEpoch(item.tid)}&nbsp;</Text>
                 <Text style={{color: brandColors.brandSuccess}}>{item.res_cnt}res&nbsp;</Text>
                 <Text style={{color: brandColors.brandDanger}}>{item.res_speed}res/h&nbsp;</Text>
                 <Text style={{color: brandColors.brandInfo}}>{Math.round(parseFloat(item.res_percent*10000))/100}%&nbsp;</Text>
-                <Text>{item.title}</Text>
+                <Text>{replaceTitle(item.title)}</Text>
               </Text>
             </ListItem>
           }
