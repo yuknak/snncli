@@ -8,6 +8,7 @@ import * as apiState from '../redux/ApiState'
 import { Tabs, Tab, Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle,ScrollableTab } from 'native-base';
 import HomeHeader from './MyHeader'
 import HomeTab from './HomeTab';
+import HomeTabTop from './HomeTabTop';
 import { Alert, RefreshControl,View } from "react-native";
 import Test from './Test.js'
 
@@ -40,11 +41,20 @@ class Home extends Component {
   render() {
     var tabList = []
     board_list.forEach((item)=> {
-      tabList.push(
-        <Tab key={item.key} heading={item.title}>
-          <HomeTab boardName={item.key} title={item.title} {...this.props}/>
-        </Tab>
-      )
+      if (item.key=="top") {
+        tabList.push(
+          <Tab key={item.key} heading={item.title}>
+            <HomeTabTop boardName={item.key} title={item.title} {...this.props}/>
+          </Tab>
+        )
+  
+      } else {
+        tabList.push(
+          <Tab key={item.key} heading={item.title}>
+            <HomeTab boardName={item.key} title={item.title} {...this.props}/>
+          </Tab>
+        )
+      }
     })
     return (
       <Container>
