@@ -32,6 +32,8 @@ class CategoryTab extends Component {
       noLoading: true
     }, ()=>{ 
       this.setState({refreshing: false})
+    }, ()=> {
+      this.setState({refreshing: false})
     })
   }
   componentWillUnmount(){
@@ -68,7 +70,10 @@ class CategoryTab extends Component {
       <Content refreshControl={
         <RefreshControl
           refreshing={this.state.refreshing}
-          onRefresh={()=>{             
+          onRefresh={()=>{  
+            if (this.state.refreshing) {
+              return
+            }           
             this.setState({refreshing: true})
             this.props.api({
               method: 'get',
@@ -77,24 +82,28 @@ class CategoryTab extends Component {
               noLoading: true
             }, ()=>{ 
               this.setState({refreshing: false})
+            }, ()=> {
+              this.setState({refreshing: false})
             })
           }} />
         }
       >
+        
         <List>
-        <ListItem icon key={this.props.boardName}>
+        <ListItem icon key={this.props.boardName} style={[listItemStyles,listHeaderStyles(this.props.boardName)]}>
         <Left>
           <Button style={listHeaderStyles(this.props.boardName)}>
             <Icon name="newspaper" />
           </Button>
         </Left>
         <Body>
-          <Text>{this.props.title}</Text>
+          <Text style={{color: '#FFFFFF'}}>{this.props.title}</Text>
         </Body>
         <Right>
-          <Text style={{fontSize: 12}}>更新:{formatDatetime(board.mirrored_at)} 時速:{board.res_speed}res/h</Text>
+          <Text style={{color: '#FFFFFF',fontSize: 12}}>更新:{formatDatetime(board.mirrored_at)} 時速:{board.res_speed}res/h</Text>
         </Right>
         </ListItem>
+
         </List>
 
         <List
