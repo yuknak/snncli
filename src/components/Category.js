@@ -15,12 +15,34 @@ class Category extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      activeTab: 0
     }
+  }
+  searchTabIndex(board_name) {
+    var index = 0;
+    var ret = 0;
+    //Alert.alert('',JSON.stringify(this.props.uiState))
+    this.props.uiState.settings.boards.some((board)=>{
+      if (board.name == board_name && board.enable) {
+        ret = index
+        return true
+      }
+      ++index
+    })
+    return ret
   } 
   componentDidMount() {
     this.props.initState('test4') // TODO:
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
+      if (this.props.route.params && this.props.route.params.boardName) {
+        // Jump into activated tab
+        var targetBoardName = this.props.route.params.boardName
+        var tabIndex = this.searchTabIndex(targetBoardName)
+        this.setState({activeTab: tabIndex})
+
+      }
+
     });
   }
   componentWillUnmount() {
@@ -46,7 +68,7 @@ class Category extends PureComponent {
     })
     return (
       <Container>
-        <Tabs renderTabBar={()=> <ScrollableTab />}>
+        <Tabs page={this.state.activeTab} renderTabBar={()=> <ScrollableTab />}>
           {tabList}
         </Tabs>
       </Container>

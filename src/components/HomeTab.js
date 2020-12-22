@@ -89,18 +89,18 @@ class HomeTab extends Component {
           } /> }
         >
         <List>
-        <ListItem icon>
-        <Left>
-          <Button>
-            <Icon name="newspaper" />
-          </Button>
-        </Left>
-        <Body>
-          <Text>{this.props.title}</Text>
-        </Body>
-        <Right>
-        </Right>
-        </ListItem>
+        <ListItem icon style={[listItemStyles,listHeaderStyles(this.props.boardName)]}>
+      <Left>
+        <Button style={listHeaderStyles(this.props.boardName)}>
+          <Icon  name="newspaper" />
+        </Button>
+      </Left>
+      <Body>
+        <Text style={{color: '#FFFFFF'}}>{this.props.title}</Text>
+      </Body>
+      <Right>
+      </Right>
+      </ListItem>
         </List>
 
         <List

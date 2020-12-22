@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
 import { Alert, RefreshControl,View,StyleSheet } from "react-native";
 import * as apiState from '../redux/ApiState'
-import { listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
+import { formatDatetime, listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
 
@@ -75,13 +75,34 @@ class HomeTabTop extends Component {
     var ele = []
     data.forEach((d)=> {
       ele.push(
-      <ListItem key={d.board.name} style={[listItemStyles,listHeaderStyles(d.board.name)]}>
-        <Text>
-          <Text style={{color: '#FFFFFF'}}>{d.board.title}&nbsp;</Text>
-          <Text style={{color: '#FFFFFF'}}>{d.board.res_speed}res/h&nbsp;</Text>
-        </Text>
+      <ListItem icon onPress={()=>{
+        this.props.navigation.jumpTo('Category',{boardName: d.board.name})
+        }}
+      key={d.board.name} style={[listItemStyles,listHeaderStyles(d.board.name)]}>
+      <Left>
+        <Button style={listHeaderStyles(d.board.name)}>
+          <Icon  name="newspaper" />
+        </Button>
+      </Left>
+      <Body>
+        <Text style={{color: '#FFFFFF'}}>{d.board.title}</Text>
+      </Body>
+      <Right>
+        <Text style={{color: '#FFFFFF',fontSize: 12}}>更新:{formatDatetime(d.board.mirrored_at)} 時速:{d.board.res_speed}res/h</Text>
+        <Text style={{color: '#FFFFFF',fontSize: 27}}>&nbsp;<Icon style={{color: '#FFFFFF'}} name="chevron-forward"/></Text>
+      </Right>
       </ListItem>
       )
+      /*
+      ele.push(
+      <ListItem onPress={()=>{
+        this.props.navigation.jumpTo('Category',{boardName: d.board.name})
+        }} key={d.board.name} style={[listItemStyles,listHeaderStyles(d.board.name)]}>
+          <Text style={{color: '#FFFFFF'}}>{d.board.title}&nbsp;</Text>
+          <Text style={{color: '#FFFFFF'}}>{d.board.res_speed}res/h&nbsp;</Text>
+      </ListItem>
+      )
+      */
       d.data.forEach((item)=> {
         ele.push(
             <ListItem key={d.board.name+item.tid} style={listItemStyles} onPress={()=>{
@@ -122,20 +143,7 @@ class HomeTabTop extends Component {
           }
           } /> }
         >
-        <List>
-        <ListItem icon key="top">
-        <Left>
-          <Button>
-            <Icon name="newspaper" />
-          </Button>
-        </Left>
-        <Body>
-          <Text>{this.props.title}</Text>
-        </Body>
-        <Right>
-        </Right>
-        </ListItem>
-        </List>
+
         <List>{ele}</List>
 
           </Content>

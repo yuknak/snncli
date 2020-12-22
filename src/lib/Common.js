@@ -49,8 +49,10 @@ export const categoryColors = {
   "scienceplus": '#D0C7B8',
   "femnewsplus": '#D6AE59',
   "dqnplus": '#947EB8',
-  "top": 'gray',  
-  "latest": 'gray',  
+  "latest": 'gray',
+  "today": 'gray',
+  "yesterday": 'gray',  
+  "festival": 'gray',  
 }
 ////////////////////////////////////////////////////////////////////////////////
 
