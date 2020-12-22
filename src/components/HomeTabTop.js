@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
-import { Alert, RefreshControl,View } from "react-native";
+import { Alert, RefreshControl,View,StyleSheet } from "react-native";
 import * as apiState from '../redux/ApiState'
 import { listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
@@ -31,12 +31,14 @@ class HomeTabTop extends Component {
       params: {per_page: 50},
       noLoading: true
     }, ()=>{ 
+      //Alert.alert("",JSON.stringify(this.props.appState.recs['get:/thread/'+this.props.boardName]))
       this.setState({refreshing: false})
     })
   }
   componentWillUnmount(){
   }
   render() {
+    //return null
     var data = null
     if (this.props.appState.recs['get:/thread/'+this.props.boardName]) {
       data = this.props.appState.recs['get:/thread/'+this.props.boardName].data.data
@@ -46,6 +48,37 @@ class HomeTabTop extends Component {
     }
     var params = {}
     params = {per_page: 50}
+
+    var ele = []
+    data.forEach((d)=> {
+      var e = []
+      e.push(
+      <ListItem style={[listItemStyles,listHeaderStyles(d.board.name)]}>
+        <Text>
+          <Text style={{color: '#FFFFFF'}}>{d.board.title}&nbsp;</Text>
+          <Text style={{color: '#FFFFFF'}}>{d.board.res_speed}res/h&nbsp;</Text>
+        </Text>
+      </ListItem>
+      )
+      d.data.forEach((item)=> {
+        e.push(
+            <ListItem style={listItemStyles} onPress={()=>{
+              this.props.navigation.push("MyWebView",
+                {uri:'https://'+d.board.server.name+'/test/read.cgi/'+d.board.name+'/'+item.tid+'/-100'})}}>
+              <Text>
+                <Text style={listCategoryStyles(d.board.name)}>★</Text>
+                <Text>{formatEpoch(item.tid)}&nbsp;</Text>
+                <Text style={{color: brandColors.brandSuccess}}>{item.res_cnt}res&nbsp;</Text>
+                <Text style={{color: brandColors.brandDanger}}>{item.res_speed}res/h&nbsp;</Text>
+                <Text style={{color: brandColors.brandInfo}}>{Math.round(parseFloat(item.res_percent*10000))/100}%&nbsp;</Text>
+                <Text>{replaceTitle(item.title)}</Text>
+              </Text>
+            </ListItem>
+        )
+      })
+      ele.push(<List>{e}</List>)
+    })
+
     return (
       <Container>
         <Content refreshControl={
@@ -79,24 +112,8 @@ class HomeTabTop extends Component {
         </ListItem>
         </List>
 
-        <List
-          dataArray={data}
-          renderRow={(item) =>
-            <ListItem style={listItemStyles} onPress={()=>{
-              this.props.navigation.push("MyWebView",
-                {uri:'https://'+item.board.server.name+'/test/read.cgi/'+item.board.name+'/'+item.tid+'/-100'})}}>
-              <Text>
-                <Text style={listCategoryStyles(item.board.name)}>★</Text>
-                <Text>{formatEpoch(item.tid)}&nbsp;</Text>
-                <Text style={{color: brandColors.brandSuccess}}>{item.res_cnt}res&nbsp;</Text>
-                <Text style={{color: brandColors.brandDanger}}>{item.res_speed}res/h&nbsp;</Text>
-                <Text style={{color: brandColors.brandInfo}}>{Math.round(parseFloat(item.res_percent*10000))/100}%&nbsp;</Text>
-                <Text>{replaceTitle(item.title)}</Text>
-              </Text>
-            </ListItem>
-          }
-          keyExtractor={(item, index) => index.toString()}
-          />
+          {ele}
+
           </Content>
         </Container>
     )
