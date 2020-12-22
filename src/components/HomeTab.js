@@ -32,6 +32,8 @@ class HomeTab extends Component {
       noLoading: true
     }, ()=>{ 
       this.setState({refreshing: false})
+    }, ()=> {
+      this.setState({refreshing: false})
     })
   }
   componentWillUnmount(){
@@ -66,7 +68,10 @@ class HomeTab extends Component {
         <Content refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}
-            onRefresh={()=>{             
+            onRefresh={()=>{        
+              if (this.state.refreshing) {
+                return
+              }     
               this.setState({refreshing: true})
               this.props.api({
                 method: 'get',
@@ -74,6 +79,8 @@ class HomeTab extends Component {
                 params: {per_page: 50},
                 noLoading: true
               }, ()=>{ 
+                this.setState({refreshing: false})
+              }, ()=> {
                 this.setState({refreshing: false})
               })
           }

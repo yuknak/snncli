@@ -33,6 +33,8 @@ class HomeTabTop extends Component {
     }, ()=>{ 
       //Alert.alert("",JSON.stringify(this.props.appState.recs['get:/thread/'+this.props.boardName]))
       this.setState({refreshing: false})
+    }, ()=> {
+      this.setState({refreshing: false})
     })
   }
   componentWillUnmount(){
@@ -101,6 +103,9 @@ class HomeTabTop extends Component {
           <RefreshControl
             refreshing={this.state.refreshing}
             onRefresh={()=>{             
+              if (this.state.refreshing) {
+                return
+              }     
               this.setState({refreshing: true})
               this.props.api({
                 method: 'get',
@@ -108,6 +113,8 @@ class HomeTabTop extends Component {
                 params: {per_page: 50},
                 noLoading: true
               }, ()=>{ 
+                this.setState({refreshing: false})
+              }, ()=> {
                 this.setState({refreshing: false})
               })
           }
