@@ -123,7 +123,7 @@ class MyWebView extends PureComponent {
     });
     return (
       <Container>
-        {this.state.loading ? loadingDiv : null}
+        { /* this.state.loading ? loadingDiv : null */}
         {webview}
         <Footer>
           <Button transparent onPress={()=>{this.props.navigation.goBack()}}>

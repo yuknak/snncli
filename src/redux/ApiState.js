@@ -31,7 +31,7 @@ export default function reducer(state=initialState, action) {
       return { ...state, calling: false, response: action.response }
     default:
       console.log("ApiState reducer: default case called: "+action.type)
-      return { ...state, calling: false }
+      return state
   }
 }
 
@@ -56,26 +56,17 @@ function buildErrorMessage(errResponse)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Peatio/Barong API call by axios
+// API call by axios
 // Axios call params:
 // {method: 'get', url: '/user_account' params: { key : value, ... }}
 // {method: 'post', url: '/user_account' data: { key : value, ... }}
 
 export const api = (params, success_func=()=>{}, error_func=()=>{}) => {
-  if (initialState.calling) { /* something need to be? */ }
-  // Use cookie auth(because of CORS issue, you have to config server side,
-  // ex, opendax traefik toml file, in order to be together with peatio and baron
-  // in the same domain and possibly you config CORS stuff in barong.
+
   //params.withCredentials = true 
   //params.baseURL = window.location.origin + '/api/v2'
 
-  const tmpUrl = Platform.select({
-    ios: 'http://www.supernn.net/api/v1',
-    android: 'http://www.supernn.net/api/v1',
-  });
-
-  //params.baseURL = "http://172.16.215.31:3000/api/v1"
-  params.baseURL = tmpUrl
+  params.baseURL = 'http://www.supernn.net/api/v1'
   
   params.validateStatus = function (status) { // we can overwrite what is success
     return status >= 200 && status < 300; // but, use default behavior

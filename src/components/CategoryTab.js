@@ -31,9 +31,9 @@ class CategoryTab extends Component {
       params: {per_page: 50},
       noLoading: true
     }, ()=>{ 
-      this.setState({refreshing: false})
+
     }, ()=> {
-      this.setState({refreshing: false})
+
     })
   }
   componentWillUnmount(){
@@ -49,7 +49,9 @@ class CategoryTab extends Component {
       return false
     }
     if (JSON.stringify(d1)==JSON.stringify(d2)) {
-      return false
+      if (!this.state.refreshing) {
+        return false
+      }
     }
     return true
   }
