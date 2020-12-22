@@ -1,7 +1,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
 import { Alert, RefreshControl,View,StyleSheet } from "react-native";
@@ -16,7 +16,7 @@ YellowBox.ignoreWarnings([
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class HomeTabTop extends PureComponent {
+class HomeTabTop extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +24,7 @@ class HomeTabTop extends PureComponent {
     }
   }
   componentDidMount() {
-    this.setState({refreshing: true})
+    //this.setState({refreshing: true})
     this.props.api({
       method: 'get',
       url: '/thread/'+this.props.boardName,
@@ -37,13 +37,32 @@ class HomeTabTop extends PureComponent {
   }
   componentWillUnmount(){
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!this.props.appState.recs['get:/thread/'+this.props.boardName] ||
+        !this.props.appState.recs['get:/thread/'+this.props.boardName].data) {
+      return true
+    }
+    var d1 = this.props.appState.recs['get:/thread/'+this.props.boardName].data.data
+    var d2 = nextProps.appState.recs['get:/thread/'+this.props.boardName].data.data
+    if (!d1||!d2) {
+      return false
+    }
+    if (JSON.stringify(d1)==JSON.stringify(d2)) {
+      return false
+    }
+    return true
+  }
   render() {
+    console.log("render called")
     //return null
     var data = null
-    if (this.props.appState.recs['get:/thread/'+this.props.boardName]) {
+    if (this.props.appState.recs['get:/thread/'+this.props.boardName] &&
+    this.props.appState.recs['get:/thread/'+this.props.boardName].data) {
       data = this.props.appState.recs['get:/thread/'+this.props.boardName].data.data
     }
     if (!data) {
+      console.log("render called NULL")
       return null
     }
     var params = {}
@@ -51,9 +70,8 @@ class HomeTabTop extends PureComponent {
 
     var ele = []
     data.forEach((d)=> {
-      var e = []
-      e.push(
-      <ListItem style={[listItemStyles,listHeaderStyles(d.board.name)]}>
+      ele.push(
+      <ListItem key={d.board.name} style={[listItemStyles,listHeaderStyles(d.board.name)]}>
         <Text>
           <Text style={{color: '#FFFFFF'}}>{d.board.title}&nbsp;</Text>
           <Text style={{color: '#FFFFFF'}}>{d.board.res_speed}res/h&nbsp;</Text>
@@ -61,8 +79,8 @@ class HomeTabTop extends PureComponent {
       </ListItem>
       )
       d.data.forEach((item)=> {
-        e.push(
-            <ListItem style={listItemStyles} onPress={()=>{
+        ele.push(
+            <ListItem key={d.board.name+item.tid} style={listItemStyles} onPress={()=>{
               this.props.navigation.push("MyWebView",
                 {uri:'https://'+d.board.server.name+'/test/read.cgi/'+d.board.name+'/'+item.tid+'/-100'})}}>
               <Text>
@@ -76,9 +94,7 @@ class HomeTabTop extends PureComponent {
             </ListItem>
         )
       })
-      ele.push(<List>{e}</List>)
     })
-
     return (
       <Container>
         <Content refreshControl={
@@ -98,7 +114,7 @@ class HomeTabTop extends PureComponent {
           } /> }
         >
         <List>
-        <ListItem icon>
+        <ListItem icon key="top">
         <Left>
           <Button>
             <Icon name="newspaper" />
@@ -111,8 +127,7 @@ class HomeTabTop extends PureComponent {
         </Right>
         </ListItem>
         </List>
-
-          {ele}
+        <List>{ele}</List>
 
           </Content>
         </Container>

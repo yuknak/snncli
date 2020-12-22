@@ -1,7 +1,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
 import { Alert, RefreshControl  } from "react-native";
@@ -16,7 +16,7 @@ YellowBox.ignoreWarnings([
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class CategoryTab extends PureComponent {
+class CategoryTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +24,7 @@ class CategoryTab extends PureComponent {
     }
   }
   componentDidMount() {
-    this.setState({refreshing: true})
+    //this.setState({refreshing: true})
     this.props.api({
       method: 'get',
       url: '/thread/'+this.props.boardName,
@@ -35,6 +35,21 @@ class CategoryTab extends PureComponent {
     })
   }
   componentWillUnmount(){
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!this.props.appState.recs['get:/thread/'+this.props.boardName] ||
+        !this.props.appState.recs['get:/thread/'+this.props.boardName].data) {
+      return true
+    }
+    var d1 = this.props.appState.recs['get:/thread/'+this.props.boardName].data.data
+    var d2 = nextProps.appState.recs['get:/thread/'+this.props.boardName].data.data
+    if (!d1||!d2) {
+      return false
+    }
+    if (JSON.stringify(d1)==JSON.stringify(d2)) {
+      return false
+    }
+    return true
   }
   render() {
     var data = null
@@ -67,7 +82,7 @@ class CategoryTab extends PureComponent {
         }
       >
         <List>
-        <ListItem icon>
+        <ListItem icon key={this.props.boardName}>
         <Left>
           <Button style={listHeaderStyles(this.props.boardName)}>
             <Icon name="newspaper" />
@@ -85,7 +100,7 @@ class CategoryTab extends PureComponent {
         <List
           dataArray={data}
           renderRow={(item) =>
-            <ListItem style={listItemStyles} onPress={()=>{
+            <ListItem key={item.tid} style={listItemStyles} onPress={()=>{
               this.props.navigation.push("MyWebView",
                 {uri:'https://'+this.props.serverName+
                   '/test/read.cgi/'+this.props.boardName+'/'+item.tid+'/-100'})}}>
