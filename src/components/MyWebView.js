@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { Platform } from 'react-native'
 import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle,Spinner } from 'native-base';
@@ -18,7 +18,7 @@ YellowBox.ignoreWarnings([
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class MyWebView extends Component {
+class MyWebView extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -112,6 +112,7 @@ class MyWebView extends Component {
         onLoadStart={()=>{this.setState({loading: true})}}
       />),
       android: (<WebView
+        userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
         ref={(r) => (this.webref = r)}
         source={{uri: uri}}
         onLoad={()=>{  }}

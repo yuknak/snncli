@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
@@ -11,7 +11,7 @@ import { Alert } from 'react-native';
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class SettingsTab extends Component {
+class SettingsTab extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {

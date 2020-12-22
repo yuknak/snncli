@@ -1,7 +1,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
 import { Alert, RefreshControl  } from "react-native";
@@ -16,7 +16,7 @@ YellowBox.ignoreWarnings([
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class CategoryTab extends Component {
+class CategoryTab extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

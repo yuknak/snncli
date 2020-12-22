@@ -47,7 +47,7 @@ export default function reducer(state=initialState, action) {
           [action.name]:action.response// array data
         }}
     default:
-      console.log("AppState reducer: default case called.")
+      console.log("AppState reducer: default case called: "+action.type)
       return state;
   }
 }

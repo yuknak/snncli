@@ -42,10 +42,11 @@ const persistedReducer = persistReducer(
 //https://hacknote.jp/archives/26111/
 
 const store = reduxCreateStore(
-  persistedReducer, applyMiddleware(logger, thunk)
+  //persistedReducer, applyMiddleware(logger, thunk)
+  persistedReducer, applyMiddleware(thunk)
 )
 
-export const persistor = persistStore(store)
+//export const persistor = persistStore(store)
 export default store
 
 ////////////////////////////////////////////////////////////////////////////////

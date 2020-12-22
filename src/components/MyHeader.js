@@ -1,7 +1,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
@@ -9,7 +9,7 @@ import { Header, Title, Button, Left, Right, Body, Icon,Subtitle,Text } from 'na
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class MyHeader extends Component {
+class MyHeader extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

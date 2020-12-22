@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
@@ -24,7 +24,7 @@ var board_list = [
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class Home extends Component {
+class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
