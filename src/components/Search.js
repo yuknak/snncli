@@ -10,6 +10,7 @@ import { listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemSty
 
 import FlatListDropDown from './FlatListDropDown'
 import { ThemeProvider } from '@react-navigation/native';
+import PageButtons from './PageButtons'
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -103,6 +104,12 @@ class Search extends Component {
           }
           } /> }
         >
+
+        <PageButtons
+          url={'/thread/search'}
+          recs_key={'get:/thread/search'}
+          {...this.props}
+        />
         <List
           dataArray={data==null?[]:data}
           renderRow={(item) =>
@@ -121,6 +128,12 @@ class Search extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
           />
+                  <PageButtons
+          url={'/thread/search'}
+          recs_key={'get:/thread/search'}
+          {...this.props}
+        />
+
           </Content>
       </Container>
     ) 

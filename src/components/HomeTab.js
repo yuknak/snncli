@@ -9,6 +9,7 @@ import * as apiState from '../redux/ApiState'
 import { listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
+import PageButtons from './PageButtons'
 
 YellowBox.ignoreWarnings([
 	'VirtualizedLists should never be nested', // TODO: Remove when fixed
@@ -102,7 +103,11 @@ class HomeTab extends Component {
       </Right>
       </ListItem>
         </List>
-
+        <PageButtons
+          url={'/thread/'+this.props.boardName}
+          recs_key={'get:/thread/'+this.props.boardName}
+          {...this.props}
+        />
         <List
           dataArray={data}
           renderRow={(item) =>
@@ -121,6 +126,11 @@ class HomeTab extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
           />
+                  <PageButtons
+          url={'/thread/'+this.props.boardName}
+          recs_key={'get:/thread/'+this.props.boardName}
+          {...this.props}
+        />
           </Content>
         </Container>
     )

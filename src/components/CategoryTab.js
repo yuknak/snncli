@@ -4,11 +4,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
-import { Alert, RefreshControl  } from "react-native";
+import { Alert, RefreshControl,ScrollView  } from "react-native";
 import * as apiState from '../redux/ApiState'
 import { formatDatetime,listCategoryStyles,replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
 import { YellowBox } from 'react-native'
+import PageButtons from './PageButtons'
 
 YellowBox.ignoreWarnings([
 	'VirtualizedLists should never be nested', // TODO: Remove when fixed
@@ -28,7 +29,7 @@ class CategoryTab extends Component {
     this.props.api({
       method: 'get',
       url: '/thread/'+this.props.boardName,
-      params: {per_page: 50},
+      params: {per_page: 25},
       noLoading: true
     }, ()=>{ 
 
@@ -50,12 +51,14 @@ class CategoryTab extends Component {
     }
     if (JSON.stringify(d1)==JSON.stringify(d2)) {
       if (!this.state.refreshing) {
+        //console.log("render SKIP")
         return false
       }
     }
     return true
   }
   render() {
+    //console.log('render')
     var data = null
     var board = null
     if (this.props.appState.recs['get:/thread/'+this.props.boardName]) {
@@ -66,10 +69,12 @@ class CategoryTab extends Component {
       return null
     }
     var params = {}
-    params = {per_page: 50}
+    params = {per_page: 25}
     return (
       <Container>
-      <Content refreshControl={
+      <ScrollView
+        ref={(r) => (this.listref = r)}
+        refreshControl={
         <RefreshControl
           refreshing={this.state.refreshing}
           onRefresh={()=>{  
@@ -80,7 +85,7 @@ class CategoryTab extends Component {
             this.props.api({
               method: 'get',
               url: '/thread/'+this.props.boardName,
-              params: {limit: 50, page: 1},
+              params: {per_page: 25},
               noLoading: true
             }, ()=>{ 
               this.setState({refreshing: false})
@@ -108,6 +113,13 @@ class CategoryTab extends Component {
 
         </List>
 
+        <PageButtons
+          listref={this.listref}
+          url={'/thread/'+this.props.boardName}
+          recs_key={'get:/thread/'+this.props.boardName}
+          {...this.props}
+        />
+
         <List
           dataArray={data}
           renderRow={(item) =>
@@ -127,7 +139,15 @@ class CategoryTab extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
         />
-      </Content>
+
+      <PageButtons
+          listref={this.listref}
+          url={'/thread/'+this.props.boardName}
+          recs_key={'get:/thread/'+this.props.boardName}
+          {...this.props}
+        />
+      </ScrollView>
+
       </Container>
     )
   }

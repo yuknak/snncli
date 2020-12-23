@@ -74,10 +74,11 @@ export const dispatchAppSuccess = (dispatch, name, response) => {
 
   // RECS: Returns multiple records(table) with paging info.
   } else if (
-    name.startsWith('get:/thread/search')
+    name.match(/thread\/([^\/]+)\?/)
     ) {
-    // omit "?q=search_workd" part.
-    dispatch({type: Action.APP_RECS, response: response, name: 'get:/thread/search'})
+    m = name.match(/thread\/([^\/]+)\?/)
+    // when "/thread/search?q=search_workd" -> "/thread/search"
+    dispatch({type: Action.APP_RECS, response: response, name: "get:/thread/"+m[1]})
   } else if (
     name.startsWith('get:/thread')
     ) {
