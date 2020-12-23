@@ -1,12 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 import Action from './Action'
-//import QRCode from 'qrcode'
 
 ////////////////////////////////////////////////////////////////////////////////
-// This is stored in redux-persist
-// but it cannot exist between different sessions,
-// will be cleared totally when every session error or every logoff
 
 const initialState = {
   
@@ -77,6 +73,11 @@ export const dispatchAppSuccess = (dispatch, name, response) => {
     dispatch({type: Action.APP_REC, response: response, name: name})
 
   // RECS: Returns multiple records(table) with paging info.
+  } else if (
+    name.startsWith('get:/thread/search')
+    ) {
+    // omit "?q=search_workd" part.
+    dispatch({type: Action.APP_RECS, response: response, name: 'get:/thread/search'})
   } else if (
     name.startsWith('get:/thread')
     ) {

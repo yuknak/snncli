@@ -53,6 +53,8 @@ export const categoryColors = {
   "today": 'gray',
   "yesterday": 'gray',  
   "festival": 'gray',  
+  "search": 'gray',  
+
 }
 ////////////////////////////////////////////////////////////////////////////////
 
