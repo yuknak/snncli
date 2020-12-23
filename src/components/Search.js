@@ -108,8 +108,8 @@ class Search extends Component {
           }
           } /> }
         >
-
         <PageButtons
+          header={true}
           listref={this.listref}
           url={'/thread/search'}
           recs_key={'get:/thread/search'}

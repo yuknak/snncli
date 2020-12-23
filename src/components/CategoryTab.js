@@ -96,6 +96,14 @@ class CategoryTab extends Component {
         }
       >
         
+        <PageButtons
+          header={true}
+          listref={this.listref}
+          url={'/thread/'+this.props.boardName}
+          recs_key={'get:/thread/'+this.props.boardName}
+          {...this.props}
+        />
+
         <List>
         <ListItem icon key={this.props.boardName} style={[listItemStyles,listHeaderStyles(this.props.boardName)]}>
         <Left>
@@ -112,13 +120,6 @@ class CategoryTab extends Component {
         </ListItem>
 
         </List>
-
-        <PageButtons
-          listref={this.listref}
-          url={'/thread/'+this.props.boardName}
-          recs_key={'get:/thread/'+this.props.boardName}
-          {...this.props}
-        />
 
         <List
           dataArray={data}

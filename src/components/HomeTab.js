@@ -91,6 +91,15 @@ class HomeTab extends Component {
           }
           } /> }
         >
+
+        <PageButtons
+          header={true}
+          listref={this.listref}
+          url={'/thread/'+this.props.boardName}
+          recs_key={'get:/thread/'+this.props.boardName}
+          {...this.props}
+        />
+
         <List>
         <ListItem icon style={[listItemStyles,listHeaderStyles(this.props.boardName)]}>
       <Left>
@@ -105,12 +114,7 @@ class HomeTab extends Component {
       </Right>
       </ListItem>
         </List>
-        <PageButtons
-          listref={this.listref}
-          url={'/thread/'+this.props.boardName}
-          recs_key={'get:/thread/'+this.props.boardName}
-          {...this.props}
-        />
+
         <List
           dataArray={data}
           renderRow={(item) =>

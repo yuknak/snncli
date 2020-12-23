@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
-import { Platform } from 'react-native'
+import { Linking, Platform } from 'react-native'
 import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle,Spinner } from 'native-base';
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
@@ -22,6 +22,7 @@ class MyWebView extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      url: '',
       loading: false
     }
   }
@@ -45,8 +46,22 @@ class MyWebView extends PureComponent {
         var len = 0;
         var elems = null;
         var elem = null;
+
+        // only in 5ch.net
+        if (location.href.indexOf('.5ch.net') < 0) {
+          return
+        }
+
+        //remove target blank
+        elems = document.getElementsByTagName('a');
+        if (elems) {
+          for (var i = 0; i < elems.length; ++i) {
+            elems[i].removeAttribute('target');
+          }
+        }
+        //remove target blank
         
-        // start for desktop
+        // start for desktop headers or something
         elems = document.getElementsByClassName('navbar-fixed-top');
         if (elems && elems[0]) {
           elems[0].remove();
@@ -59,7 +74,7 @@ class MyWebView extends PureComponent {
         if (elems && elems[0]) {
           elems[0].remove();
         }
-        // end for desktop
+        // end for desktop headers or something
 
         elem = document.getElementById('main');
         if (elem) {
@@ -105,7 +120,7 @@ class MyWebView extends PureComponent {
       var timer = setInterval(clean, 1000);
       true;
     `;
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android' && this.props.uiState.settings.remove_ads) {
       var id = setInterval(()=>{
         if (this.webref) {
           this.webref.injectJavaScript(runFirst);
@@ -122,12 +137,16 @@ class MyWebView extends PureComponent {
       webview = Platform.select({
         ios: (<WebView
           userAgent={userAgent}
+          ref={(r) => (this.webref = r)}
           injectedJavaScriptBeforeContentLoaded={runFirst}
           injectedJavaScriptBeforeContentLoadedForMainFrameOnly={true}
           source={{uri: uri}}
           onLoad={()=>{  }}
           onLoadEnd={()=>{this.setState({loading: false})}}
           onLoadStart={()=>{this.setState({loading: true})}}
+          onNavigationStateChange={(e) => {
+            this.setState({url: e.url})
+          }}
         />),
         android: (<WebView
           userAgent={userAgent}
@@ -136,39 +155,57 @@ class MyWebView extends PureComponent {
           onLoad={()=>{  }}
           onLoadEnd={()=>{this.setState({loading: false})}}
           onLoadStart={()=>{this.setState({loading: true})}}
+          onNavigationStateChange={(e) => {
+            this.setState({url: e.url})
+          }}
         />),
       });
     } else {
       webview = Platform.select({
         ios: (<WebView
           userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
-           source={{uri: uri}}
-          onLoad={()=>{  }}
-          onLoadEnd={()=>{this.setState({loading: false})}}
-          onLoadStart={()=>{this.setState({loading: true})}}
-        />),
-        android: (<WebView
-          userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
+          ref={(r) => (this.webref = r)}
           source={{uri: uri}}
           onLoad={()=>{  }}
           onLoadEnd={()=>{this.setState({loading: false})}}
           onLoadStart={()=>{this.setState({loading: true})}}
+          onNavigationStateChange={(e) => {
+            this.setState({url: e.url})
+          }}
+        />),
+        android: (<WebView
+          userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
+          ref={(r) => (this.webref = r)}
+          source={{uri: uri}}
+          onLoad={()=>{  }}
+          onLoadEnd={()=>{this.setState({loading: false})}}
+          onLoadStart={()=>{this.setState({loading: true})}}
+          onNavigationStateChange={(e) => {
+            this.setState({url: e.url})
+          }}
         />),
       });
     }
     var loadingDiv = (<Spinner color='black'/>)
-    const icon = Platform.select({
-      ios: (<Icon name="close"/>),
-      android: (<Icon style={{color: 'white'}} name="close"/>),
-    });
     return (
       <Container>
         { this.state.loading ? loadingDiv : null }
         {webview}
         <Footer>
-          <Button onPress={()=>{this.props.navigation.goBack()}}>
-            {icon}
+          <FooterTab>
+          <Button active onPress={()=>{Linking.openURL(this.state.url)}}>
+            <Icon name="browsers"/>
+            <Text>ブラウザで開く</Text>
           </Button>
+          <Button active onPress={()=>{this.webref.goBack()}}>
+            <Icon name="chevron-back"/>
+            <Text>前へ</Text>
+          </Button>
+          <Button active onPress={()=>{this.props.navigation.goBack()}}>
+            <Icon name="close"/>
+            <Text>閲覧終了</Text>
+          </Button>
+          </FooterTab>
         </Footer>
       </Container>
     );
