@@ -43,47 +43,47 @@ class PageButtons extends React.Component {
     }
 
     var first = (
-    <Button active onPress={()=>{
+    <Button  onPress={()=>{
       this.props.api({ method: 'get',
       noLoading: true, // prevent from going back index 0 tab
       url: this.props.url + '?page=1', params: {per_page: 50}}, ()=> {
         this.props.listref.scrollTo({ y: 0, animated: true, })
        
       })
-    }}><Text>&lt;&lt;&nbsp;最初</Text></Button>)    
+    }}><Text>&lt;&lt;&nbsp;</Text></Button>)    
     var back = (
-      <Button active onPress={()=>{
+      <Button  onPress={()=>{
         this.props.api({ method: 'get',
         noLoading: true,
         url: this.props.url + '?page='+prev_page, params: {per_page: 50}}, ()=> {
           this.props.listref.scrollTo({ y: 0, animated: true, })
     
         })
-      }}><Text>&lt;&nbsp;前</Text></Button>
+      }}><Text>&lt;&nbsp;</Text></Button>
     )
     var next = (
-      <Button active onPress={()=>{
+      <Button  onPress={()=>{
         this.props.api({ method: 'get',
         noLoading: true,
         url: this.props.url + '?page='+next_page, params: {per_page: 50}}, ()=> {
           this.props.listref.scrollTo({ y: 0, animated: true, })
     
         })
-      }}><Text>次&nbsp;&gt;</Text></Button>
+      }}><Text>&nbsp;&gt;</Text></Button>
     )
     var last = (
-      <Button active onPress={()=>{
+      <Button  onPress={()=>{
         this.props.api({ method: 'get',
         noLoading: true,
         url: this.props.url + '?page='+total_pages, params: {per_page: 50}}, ()=> {
           this.props.listref.scrollTo({ y: 0, animated: true, })
         })
-      }}><Text>最後&nbsp;&gt;&gt;</Text></Button>
+      }}><Text>&nbsp;&gt;&gt;</Text></Button>
     )
     var all = (
       <Footer>
       <FooterTab>
-    <Button active><Text>{page} / {total_pages}</Text></Button>
+    <Button ><Text>{page} / {total_pages}</Text></Button>
     {page != 1 ? first : null}
     {page != 1 ? back : null}
     {page != total_pages ? next : null}
