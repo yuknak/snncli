@@ -2,6 +2,7 @@
 
 import React  from 'react'
 import { connect } from 'react-redux'
+import { Footer } from 'native-base';
 import * as appState from '../redux/AppState'
 import * as apiState from '../redux/ApiState'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
@@ -42,41 +43,53 @@ class PageButtons extends React.Component {
       prev_page = 1
     }
 
+    var first = (
+    <Button onPress={()=>{
+      this.props.api({ method: 'get',
+      noLoading: true, // prevent from going back index 0 tab
+      url: this.props.url + '?page=1', params: {per_page: 50}}, ()=> {
+        this.props.listref.scrollTo({ y: 0, animated: true, })
+       
+      })
+    }}><Text>最初</Text></Button>)    
+    var back = (
+      <Button onPress={()=>{
+        this.props.api({ method: 'get',
+        noLoading: true,
+        url: this.props.url + '?page='+prev_page, params: {per_page: 50}}, ()=> {
+          this.props.listref.scrollTo({ y: 0, animated: true, })
+    
+        })
+      }}><Text>戻る</Text></Button>
+    )
+    var next = (
+      <Button onPress={()=>{
+        this.props.api({ method: 'get',
+        noLoading: true,
+        url: this.props.url + '?page='+next_page, params: {per_page: 50}}, ()=> {
+          this.props.listref.scrollTo({ y: 0, animated: true, })
+    
+        })
+      }}><Text>次へ</Text></Button>
+    )
+    var last = (
+      <Button onPress={()=>{
+        this.props.api({ method: 'get',
+        noLoading: true,
+        url: this.props.url + '?page='+total_pages, params: {per_page: 50}}, ()=> {
+          this.props.listref.scrollTo({ y: 0, animated: true, })
+        })
+      }}><Text>最後</Text></Button>
+    )
+    
     return (
-  <>
-  <Button onPress={()=>{
-    this.props.api({ method: 'get',
-    noLoading: true, // prevent from going back index 0 tab
-    url: this.props.url + '?page=1'}, ()=> {
-      this.props.listref.scrollTo({ y: 0, animated: true, })
-     
-    })
-  }}><Text>TOP</Text></Button>
-  <Button onPress={()=>{
-    this.props.api({ method: 'get',
-    noLoading: true,
-    url: this.props.url + '?page='+prev_page}, ()=> {
-      this.props.listref.scrollTo({ y: 0, animated: true, })
-
-    })
-  }}><Text>PREV</Text></Button>
-  <Button onPress={()=>{
-    this.props.api({ method: 'get',
-    noLoading: true,
-    url: this.props.url + '?page='+next_page}, ()=> {
-      this.props.listref.scrollTo({ y: 0, animated: true, })
-
-    })
-  }}><Text>NEXT</Text></Button>
-  <Button onPress={()=>{
-    this.props.api({ method: 'get',
-    noLoading: true,
-    url: this.props.url + '?page='+total_pages}, ()=> {
-      this.props.listref.scrollTo({ y: 0, animated: true, })
-    })
-  }}><Text>LAST</Text></Button>
+  <Footer>
   <Text>{page} / {total_pages}</Text>
-  </>
+  {page != 1 ? first : null}
+  {page != 1 ? back : null}
+  {page != total_pages ? next : null}
+  {page != total_pages ? last : null}
+  </Footer>
     );
   }
 };

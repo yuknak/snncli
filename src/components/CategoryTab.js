@@ -29,7 +29,7 @@ class CategoryTab extends Component {
     this.props.api({
       method: 'get',
       url: '/thread/'+this.props.boardName,
-      params: {per_page: 25},
+      params: {per_page: 50},
       noLoading: true
     }, ()=>{ 
 
@@ -69,7 +69,7 @@ class CategoryTab extends Component {
       return null
     }
     var params = {}
-    params = {per_page: 25}
+    params = {per_page: 50}
     return (
       <Container>
       <ScrollView
@@ -85,7 +85,7 @@ class CategoryTab extends Component {
             this.props.api({
               method: 'get',
               url: '/thread/'+this.props.boardName,
-              params: {per_page: 25},
+              params: {per_page: 50},
               noLoading: true
             }, ()=>{ 
               this.setState({refreshing: false})

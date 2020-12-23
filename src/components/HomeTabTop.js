@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
-import { Alert, RefreshControl,View,StyleSheet } from "react-native";
+import { Alert, RefreshControl,ScrollView,StyleSheet } from "react-native";
 import * as apiState from '../redux/ApiState'
 import { formatDatetime, listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
@@ -122,7 +122,7 @@ class HomeTabTop extends Component {
     })
     return (
       <Container>
-        <Content refreshControl={
+        <ScrollView refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}
             onRefresh={()=>{
@@ -146,7 +146,7 @@ class HomeTabTop extends Component {
 
         <List>{ele}</List>
 
-          </Content>
+          </ScrollView>
         </Container>
     )
   }

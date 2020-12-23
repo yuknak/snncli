@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
-import { Alert, RefreshControl,View } from "react-native";
+import { Alert, RefreshControl,ScrollView } from "react-native";
 import * as apiState from '../redux/ApiState'
 import { listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
@@ -68,7 +68,9 @@ class HomeTab extends Component {
     params = {per_page: 50}
     return (
       <Container>
-        <Content refreshControl={
+        <ScrollView
+        ref={(r) => (this.listref = r)}
+        refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}
             onRefresh={()=>{        
@@ -104,6 +106,7 @@ class HomeTab extends Component {
       </ListItem>
         </List>
         <PageButtons
+          listref={this.listref}
           url={'/thread/'+this.props.boardName}
           recs_key={'get:/thread/'+this.props.boardName}
           {...this.props}
@@ -126,12 +129,13 @@ class HomeTab extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
           />
-                  <PageButtons
+        <PageButtons
+          listref={this.listref}
           url={'/thread/'+this.props.boardName}
           recs_key={'get:/thread/'+this.props.boardName}
           {...this.props}
         />
-          </Content>
+          </ScrollView>
         </Container>
     )
   }

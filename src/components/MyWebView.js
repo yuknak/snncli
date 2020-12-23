@@ -39,11 +39,6 @@ class MyWebView extends PureComponent {
   //https://github.com/react-native-webview/react-native-webview/blob/master/docs/Guide.md
   render() {
     var uri = this.props.route.params.uri
-    var loadingDiv = (<Spinner color='black'/>)
-    const icon = Platform.select({
-      ios: (<Icon name="close"/>),
-      android: (<Icon style={{color: 'white'}} name="close"/>),
-    });
     // Remove ads
     const runFirst = `
       function clean() {
@@ -161,12 +156,17 @@ class MyWebView extends PureComponent {
         />),
       });
     }
+    var loadingDiv = (<Spinner color='black'/>)
+    const icon = Platform.select({
+      ios: (<Icon name="close"/>),
+      android: (<Icon style={{color: 'white'}} name="close"/>),
+    });
     return (
       <Container>
-        { /* this.state.loading ? loadingDiv : null */}
+        { this.state.loading ? loadingDiv : null }
         {webview}
         <Footer>
-          <Button transparent onPress={()=>{this.props.navigation.goBack()}}>
+          <Button onPress={()=>{this.props.navigation.goBack()}}>
             {icon}
           </Button>
         </Footer>

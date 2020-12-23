@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle } from 'native-base';
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
-import { Alert, RefreshControl,View } from "react-native";
+import { Alert, RefreshControl,ScrollView } from "react-native";
 import { listCategoryStyles, replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
 import FlatListDropDown from './FlatListDropDown'
@@ -78,11 +78,15 @@ class Search extends Component {
           />
           <Icon name="ios-people" />
         </Item>
+        { /*
         <Button transparent>
           <Text>Search</Text>
         </Button>
+        */ }
         </Header>
-        <Content refreshControl={
+        <ScrollView
+        ref={(r) => (this.listref = r)}
+        refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}
             onRefresh={()=>{        
@@ -106,6 +110,7 @@ class Search extends Component {
         >
 
         <PageButtons
+          listref={this.listref}
           url={'/thread/search'}
           recs_key={'get:/thread/search'}
           {...this.props}
@@ -128,13 +133,14 @@ class Search extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
           />
-                  <PageButtons
+        <PageButtons
+          listref={this.listref}
           url={'/thread/search'}
           recs_key={'get:/thread/search'}
           {...this.props}
         />
 
-          </Content>
+          </ScrollView>
       </Container>
     ) 
   }
