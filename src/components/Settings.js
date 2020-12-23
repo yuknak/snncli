@@ -39,52 +39,55 @@ class SettingsTab extends PureComponent {
     if (!this.state.settings||!this.state.settings.boards) {
       return null
     }
-    this.state.settings.boards.forEach((item)=> {
-      itemList.push(
-        <ListItem icon key={item.name}>
-        <Left>
-          <Button style={listHeaderStyles(item.name)}>
-            <Icon name="newspaper" />
-          </Button>
-        </Left>
-        <Body>
-          <Text>{item.title_cached}</Text>
-        </Body>
-        <Right>
-          <Switch value={item.enable} onValueChange={
-            (value) => {
-              var prev_value = item.enable
-              item.enable = value
-              var cnt = 0
-              this.state.settings.boards.forEach((item)=> {
-                if (item.enable) {
-                  ++cnt
-                }
-              })
-              if (cnt < 3) {
-                Alert.alert('', '最低3つONにしてください')
-                item.enable = prev_value
-                if (cnt <= 1) {
-                  //this.state.settings.boards[0].enable = true
-                  //this.state.settings.boards[1].enable = true
-                  //this.state.settings.boards[2].enable = true
-                }
-              }
-              //deep copy
-              this.setState({settings: JSON.parse(JSON.stringify(this.state.settings))})
-            }}/>
-        </Right>
-        </ListItem>
+
+    itemList.push(
+    <ListItem icon key={'webview_desktop'}>
+    <Left>
+
+    </Left>
+    <Body>
+      <Text>PC用ブラウザを用いる</Text>
+    </Body>
+    <Right>
+      <Switch value={this.state.settings.webview_desktop} onValueChange={
+        (value) => {
+          this.state.settings.webview_desktop = value
+          //deep copy
+          this.setState({settings: JSON.parse(JSON.stringify(this.state.settings))})
+        }}/>
+    </Right>
+    </ListItem>
+    )
+
+    itemList.push(
+      <ListItem icon key={'remove_ads'}>
+      <Left>
+
+      </Left>
+      <Body>
+        <Text>広告等を除去(実験版)</Text>
+      </Body>
+      <Right>
+        <Switch value={this.state.settings.remove_ads} onValueChange={
+          (value) => {
+            this.state.settings.remove_ads = value
+            //deep copy
+            this.setState({settings: JSON.parse(JSON.stringify(this.state.settings))})
+          }}/>
+      </Right>
+      </ListItem>
       )
-    })
+  
     return (
       <Container>
         <Content>
           <Card>
             <List>
+            {/*
             <ListItem itemDivider><Text>カテゴリ表示する掲示板(最低3つ)</Text></ListItem>
-              {itemList}
             <ListItem itemDivider/>
+            */ }
+              {itemList}
             </List>
             </Card>
           </Content>

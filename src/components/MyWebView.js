@@ -50,6 +50,22 @@ class MyWebView extends PureComponent {
         var len = 0;
         var elems = null;
         var elem = null;
+        
+        // start for desktop
+        elems = document.getElementsByClassName('navbar-fixed-top');
+        if (elems && elems[0]) {
+          elems[0].remove();
+        }
+        elems = document.getElementsByClassName('topmenu');
+        if (elems && elems[0]) {
+          elems[0].remove();
+        }
+        elems = document.getElementsByClassName('socialmedia');
+        if (elems && elems[0]) {
+          elems[0].remove();
+        }
+        // end for desktop
+
         elem = document.getElementById('main');
         if (elem) {
           elem.removeAttribute('class')
@@ -102,25 +118,49 @@ class MyWebView extends PureComponent {
         }        
       }, 1500);  
     }
-    const webview = Platform.select({
-      ios: (<WebView
-        userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
-        injectedJavaScriptBeforeContentLoaded={runFirst}
-        injectedJavaScriptBeforeContentLoadedForMainFrameOnly={true}
-        source={{uri: uri}}
-        onLoad={()=>{  }}
-        onLoadEnd={()=>{this.setState({loading: false})}}
-        onLoadStart={()=>{this.setState({loading: true})}}
-      />),
-      android: (<WebView
-        userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
-        ref={(r) => (this.webref = r)}
-        source={{uri: uri}}
-        onLoad={()=>{  }}
-        onLoadEnd={()=>{this.setState({loading: false})}}
-        onLoadStart={()=>{this.setState({loading: true})}}
-      />),
-    });
+    var userAgent = undefined
+    if (this.props.uiState.settings.webview_desktop) {
+      userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"
+    }
+    var webview
+    if (this.props.uiState.settings.remove_ads) {
+      webview = Platform.select({
+        ios: (<WebView
+          userAgent={userAgent}
+          injectedJavaScriptBeforeContentLoaded={runFirst}
+          injectedJavaScriptBeforeContentLoadedForMainFrameOnly={true}
+          source={{uri: uri}}
+          onLoad={()=>{  }}
+          onLoadEnd={()=>{this.setState({loading: false})}}
+          onLoadStart={()=>{this.setState({loading: true})}}
+        />),
+        android: (<WebView
+          userAgent={userAgent}
+          ref={(r) => (this.webref = r)}
+          source={{uri: uri}}
+          onLoad={()=>{  }}
+          onLoadEnd={()=>{this.setState({loading: false})}}
+          onLoadStart={()=>{this.setState({loading: true})}}
+        />),
+      });
+    } else {
+      webview = Platform.select({
+        ios: (<WebView
+          userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
+           source={{uri: uri}}
+          onLoad={()=>{  }}
+          onLoadEnd={()=>{this.setState({loading: false})}}
+          onLoadStart={()=>{this.setState({loading: true})}}
+        />),
+        android: (<WebView
+          userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
+          source={{uri: uri}}
+          onLoad={()=>{  }}
+          onLoadEnd={()=>{this.setState({loading: false})}}
+          onLoadStart={()=>{this.setState({loading: true})}}
+        />),
+      });
+    }
     return (
       <Container>
         { /* this.state.loading ? loadingDiv : null */}

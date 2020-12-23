@@ -16,6 +16,8 @@ const initialState = {
   navigation: null,   // to control react navigation globally
   routeName: '',      // to get global state of react navigation
   settings: {
+    webview_desktop: true,
+    remove_ads: true,
     boards: [
       {title_cached: "ニュー速", name:"newsplus",
         server_name_cached:"asahi.5ch.net",enable:true},

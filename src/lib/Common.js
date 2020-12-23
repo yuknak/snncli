@@ -53,7 +53,10 @@ export const categoryColors = {
   "today": 'gray',
   "yesterday": 'gray',  
   "festival": 'gray',  
-  "search": 'gray',  
+  "search": 'gray',
+  // setting icon
+  "webview_desktop": '#0E6FB9',
+  "remove_ads": '#0E6FB9',
 
 }
 ////////////////////////////////////////////////////////////////////////////////
