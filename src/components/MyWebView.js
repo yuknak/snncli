@@ -193,15 +193,15 @@ class MyWebView extends PureComponent {
         {webview}
         <Footer>
           <FooterTab>
-          <Button active onPress={()=>{Linking.openURL(this.state.url)}}>
+          <Button  onPress={()=>{Linking.openURL(this.state.url)}}>
             <Icon name="browsers"/>
-            <Text>ブラウザで開く</Text>
+            <Text>ブラウザ</Text>
           </Button>
-          <Button active onPress={()=>{this.webref.goBack()}}>
+          <Button  onPress={()=>{this.webref.goBack()}}>
             <Icon name="chevron-back"/>
             <Text>前へ</Text>
           </Button>
-          <Button active onPress={()=>{this.props.navigation.goBack()}}>
+          <Button  onPress={()=>{this.props.navigation.goBack()}}>
             <Icon name="close"/>
             <Text>閲覧終了</Text>
           </Button>
