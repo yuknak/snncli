@@ -5,7 +5,8 @@ import { View } from 'react-native'
 import { Spinner } from 'native-base'
 import { connect } from 'react-redux';
 import * as uiState from '../redux/UiState'
-import {ProgressBar} from '@react-native-community/progress-bar-android'
+//import {ProgressBar} from '@react-native-community/progress-bar-android'
+import {ProgressBar, Colors} from 'react-native-paper'
 
 ////////////////////////////////////////////////////////////////////////////////
 //      <Spinner color='black' />
@@ -16,8 +17,7 @@ const AppLoading = (props) => {
     //return null
     return (
       <ProgressBar
-        styleAttr="Horizontal"
-        indeterminate={true}
+        indeterminate={true} color={Colors.grey500}
       />
     );
   }
