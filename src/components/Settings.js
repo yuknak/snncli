@@ -21,7 +21,7 @@ class SettingsTab extends PureComponent {
   componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
-      Alert.alert('',JSON.stringify(this.props.appState.settings))
+      //Alert.alert('',JSON.stringify(this.props.appState.settings))
       // deep copy
       this.setState({settings: JSON.parse(JSON.stringify(this.props.appState.settings))})
     });
