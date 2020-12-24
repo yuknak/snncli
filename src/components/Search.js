@@ -111,7 +111,7 @@ class Search extends Component {
         <PageButtons
           header={true}
           listref={this.listref}
-          url={'/thread/search'}
+          url={'/thread/search?q='+this.state.queryStr}
           recs_key={'get:/thread/search'}
           {...this.props}
         />
@@ -134,7 +134,7 @@ class Search extends Component {
           />
         <PageButtons
           listref={this.listref}
-          url={'/thread/search'}
+          url={'/thread/search?q='+this.state.queryStr}
           recs_key={'get:/thread/search'}
           {...this.props}
         />
