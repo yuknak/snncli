@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import * as uiState from '../redux/UiState'
-import * as apiState from '../redux/ApiState'
+import * as appState from '../redux/AppState'
 import { Formik } from 'formik'
 import { brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
 
@@ -21,9 +21,9 @@ class SettingsTab extends PureComponent {
   componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
-      //Alert.alert('',JSON.stringify(this.props.uiState.settings))
+      Alert.alert('',JSON.stringify(this.props.appState.settings))
       // deep copy
-      this.setState({settings: JSON.parse(JSON.stringify(this.props.uiState.settings))})
+      this.setState({settings: JSON.parse(JSON.stringify(this.props.appState.settings))})
     });
     this._unsubscribe2 = this.props.navigation.addListener('blur', () => {
       //deep copy
@@ -36,7 +36,7 @@ class SettingsTab extends PureComponent {
   }
   render() {
     var itemList = []
-    if (!this.state.settings||!this.state.settings.boards) {
+    if (!this.state.settings) {
       return null
     }
 
@@ -100,6 +100,7 @@ class SettingsTab extends PureComponent {
 const mapStateToProps = state => {
   return {
     uiState: state.uiState,
+    appState: state.appState,
   }
 }
 
@@ -108,7 +109,7 @@ const mapDispatchToProps = dispatch => {
     setNavigation: (navigation,routeName) =>
       dispatch(uiState.setNavigation(navigation,routeName)),
     updateSettings: (settings) =>
-      dispatch(uiState.updateSettings(settings)),
+      dispatch(appState.updateSettings(settings)),
   }
 }
 
