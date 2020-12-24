@@ -32,19 +32,19 @@ class About extends Component {
         <Content padder>
           <Card>
             <CardItem header bordered>
-              <Text>SUPERNN.NET 5ちゃんねるニュース速報</Text>
+              <Text>SUPERNN.NET 掲示板ニュース速報</Text>
             </CardItem>
             <CardItem bordered>
               <Body>
                 <Text>
-                このサイトは5ちゃんねる(旧2ちゃんねる)のニュース速報＋系掲示板の書き込みを自動解析し、人気の高いニュース及び最新のニュースをリアルタイムで提供しています。
+                このサイトはニュース系掲示板の書き込みを自動解析し、人気の高いニュース及び最新のニュースをリアルタイムで提供しています。
                 </Text>
               </Body>
             </CardItem>
             <CardItem bordered>
               <Body>
                 <Text>
-                Made by Tetraserve, Co.,Ltd.
+                Made by yn
                 </Text>
               </Body>
             </CardItem>

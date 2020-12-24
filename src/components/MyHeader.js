@@ -5,7 +5,8 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import * as uiState from '../redux/UiState'
 import * as apiState from '../redux/ApiState'
-import { Header, Title, Button, Left, Right, Body, Icon,Subtitle,Text } from 'native-base'
+import { Spinner, Header, Title, Button, Left, Right, Body, Icon,Subtitle,Text } from 'native-base'
+import AppLoading from './AppLoading'
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -31,15 +32,17 @@ class MyHeader extends PureComponent {
       type = 'back'
     }
     return (
+      <>
       <Header>
         <Left>{type=='back' ? back : menu}</Left>
         <Body>
           <Title>SUPERNN.NET</Title>
-          <Subtitle>5chニュース速報</Subtitle>
+          <Subtitle>掲示板ニュース速報</Subtitle>
         </Body>
         <Right />
       </Header>
-
+      <AppLoading color='black'/>
+      </>
     )
   }
 }

@@ -30,7 +30,7 @@ class HomeTab extends Component {
       method: 'get',
       url: '/thread/'+this.props.boardName,
       params: {per_page: 50},
-      noLoading: true
+      //noLoading: true
     }, ()=>{ 
 
     }, ()=> {
@@ -82,7 +82,7 @@ class HomeTab extends Component {
                 method: 'get',
                 url: '/thread/'+this.props.boardName,
                 params: {per_page: 50},
-                noLoading: true
+                //noLoading: true
               }, ()=>{ 
                 this.setState({refreshing: false})
               }, ()=> {
@@ -125,8 +125,7 @@ class HomeTab extends Component {
                 <Text style={listCategoryStyles(item.board.name)}>★</Text>
                 <Text>{formatEpoch(item.tid)}&nbsp;</Text>
                 <Text style={{color: brandColors.brandSuccess}}>{item.res_cnt}res&nbsp;</Text>
-                <Text style={{color: brandColors.brandDanger}}>{item.res_speed}res/h&nbsp;</Text>
-                <Text style={{color: brandColors.brandInfo}}>{Math.round(parseFloat(item.res_percent*10000))/100}%&nbsp;</Text>
+                <Text style={{color: brandColors.brandDanger}}>{item.res_speed_max}res/h&nbsp;</Text>
                 <Text>{replaceTitle(item.title)}</Text>
               </Text>
             </ListItem>
@@ -151,7 +150,6 @@ const mapStateToProps = state => {
   return {
     apiState: state.apiState,
     appState: state.appState,
-    uiState: state.uiState,
   }
 }
 

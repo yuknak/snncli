@@ -32,7 +32,7 @@ class Category extends PureComponent {
     return ret
   } 
   componentDidMount() {
-    this.props.initState('test4') // TODO:
+    //this.props.initState('test4') // TODO:
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
       if (this.props.route.params && this.props.route.params.boardName) {
@@ -86,8 +86,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    initState: (sessionUid) =>
-      dispatch(uiState.initState(sessionUid)),
+    //initState: (sessionUid) =>
+    //  dispatch(uiState.initState(sessionUid)),
     setNavigation: (navigation,routeName) =>
       dispatch(uiState.setNavigation(navigation,routeName)),
   }

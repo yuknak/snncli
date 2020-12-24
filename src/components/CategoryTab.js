@@ -30,7 +30,7 @@ class CategoryTab extends Component {
       method: 'get',
       url: '/thread/'+this.props.boardName,
       params: {per_page: 50},
-      noLoading: true
+      //noLoading: true
     }, ()=>{ 
 
     }, ()=> {
@@ -86,7 +86,7 @@ class CategoryTab extends Component {
               method: 'get',
               url: '/thread/'+this.props.boardName,
               params: {per_page: 50},
-              noLoading: true
+              //noLoading: true
             }, ()=>{ 
               this.setState({refreshing: false})
             }, ()=> {
@@ -160,7 +160,6 @@ const mapStateToProps = state => {
   return {
     apiState: state.apiState,
     appState: state.appState,
-    uiState: state.uiState,
   }
 }
 
@@ -168,14 +167,6 @@ const mapDispatchToProps = dispatch => {
   return {
     api: (params,success,error) =>
       dispatch(apiState.api(params,success,error)),
-    /*
-    selectMarket: (market) =>
-      dispatch(uiState.selectMarket(market)),
-    selectOrder: (market, order) =>
-      dispatch(uiState.selectOrder(market, order)),
-    showAlert: (variant, message) =>
-      dispatch(uiState.showAlert(variant, message)),
-    */
   }
 }
 ////////////////////////////////////////////////////////////////////////////////

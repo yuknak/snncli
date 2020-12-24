@@ -29,7 +29,7 @@ class HomeTabTop extends Component {
       method: 'get',
       url: '/thread/'+this.props.boardName,
       params: {per_page: 50},
-      noLoading: true
+      //noLoading: true
     }, ()=>{ 
       //Alert.alert("",JSON.stringify(this.props.appState.recs['get:/thread/'+this.props.boardName]))
       //this.setState({refreshing: false})
@@ -134,7 +134,7 @@ class HomeTabTop extends Component {
                 method: 'get',
                 url: '/thread/'+this.props.boardName,
                 params: {per_page: 50},
-                noLoading: true
+                //noLoading: true
               }, ()=>{ 
                 this.setState({refreshing: false})
               }, ()=> {
@@ -158,7 +158,6 @@ const mapStateToProps = state => {
   return {
     apiState: state.apiState,
     appState: state.appState,
-    uiState: state.uiState,
   }
 }
 

@@ -142,8 +142,8 @@ class MyWebView extends PureComponent {
           injectedJavaScriptBeforeContentLoadedForMainFrameOnly={true}
           source={{uri: uri}}
           onLoad={()=>{  }}
-          onLoadEnd={()=>{this.setState({loading: false})}}
-          onLoadStart={()=>{this.setState({loading: true})}}
+          onLoadStart={()=>{this.props.startLoading()}}
+          onLoadEnd={()=>{this.props.endLoading()}}
           onNavigationStateChange={(e) => {
             this.setState({url: e.url})
           }}
@@ -153,8 +153,8 @@ class MyWebView extends PureComponent {
           ref={(r) => (this.webref = r)}
           source={{uri: uri}}
           onLoad={()=>{  }}
-          onLoadEnd={()=>{this.setState({loading: false})}}
-          onLoadStart={()=>{this.setState({loading: true})}}
+          onLoadStart={()=>{this.props.startLoading()}}
+          onLoadEnd={()=>{this.props.endLoading()}}
           onNavigationStateChange={(e) => {
             this.setState({url: e.url})
           }}
@@ -167,8 +167,8 @@ class MyWebView extends PureComponent {
           ref={(r) => (this.webref = r)}
           source={{uri: uri}}
           onLoad={()=>{  }}
-          onLoadEnd={()=>{this.setState({loading: false})}}
-          onLoadStart={()=>{this.setState({loading: true})}}
+          onLoadStart={()=>{this.props.startLoading()}}
+          onLoadEnd={()=>{this.props.endLoading()}}
           onNavigationStateChange={(e) => {
             this.setState({url: e.url})
           }}
@@ -178,8 +178,8 @@ class MyWebView extends PureComponent {
           ref={(r) => (this.webref = r)}
           source={{uri: uri}}
           onLoad={()=>{  }}
-          onLoadEnd={()=>{this.setState({loading: false})}}
-          onLoadStart={()=>{this.setState({loading: true})}}
+          onLoadStart={()=>{this.props.startLoading()}}
+          onLoadEnd={()=>{this.props.endLoading()}}
           onNavigationStateChange={(e) => {
             this.setState({url: e.url})
           }}
@@ -223,6 +223,10 @@ const mapDispatchToProps = dispatch => {
   return {
     setNavigation: (navigation,routeName) =>
       dispatch(uiState.setNavigation(navigation,routeName)),
+    startLoading: () =>
+      dispatch(uiState.startLoading()),
+    endLoading: () =>
+      dispatch(uiState.endLoading()),
   }
 }
 

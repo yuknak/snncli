@@ -45,7 +45,7 @@ class PageButtons extends React.Component {
     var first = (
     <Button active onPress={()=>{
       this.props.api({ method: 'get',
-      noLoading: true, // prevent from going back index 0 tab
+      //noLoading: true, // prevent from going back index 0 tab
       url: this.props.url + '?page=1', params: {per_page: 50}}, ()=> {
         this.props.listref.scrollTo({ y: 0, animated: true, })
        
@@ -54,7 +54,7 @@ class PageButtons extends React.Component {
     var back = (
       <Button active onPress={()=>{
         this.props.api({ method: 'get',
-        noLoading: true,
+        //noLoading: true,
         url: this.props.url + '?page='+prev_page, params: {per_page: 50}}, ()=> {
           this.props.listref.scrollTo({ y: 0, animated: true, })
     
@@ -64,7 +64,7 @@ class PageButtons extends React.Component {
     var next = (
       <Button active onPress={()=>{
         this.props.api({ method: 'get',
-        noLoading: true,
+        //noLoading: true,
         url: this.props.url + '?page='+next_page, params: {per_page: 50}}, ()=> {
           this.props.listref.scrollTo({ y: 0, animated: true, })
     
@@ -74,7 +74,7 @@ class PageButtons extends React.Component {
     var last = (
       <Button active onPress={()=>{
         this.props.api({ method: 'get',
-        noLoading: true,
+        //noLoading: true,
         url: this.props.url + '?page='+total_pages, params: {per_page: 50}}, ()=> {
           this.props.listref.scrollTo({ y: 0, animated: true, })
         })
