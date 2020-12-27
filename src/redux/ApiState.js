@@ -66,7 +66,7 @@ export const api = (params, success_func=()=>{}, error_func=()=>{}) => {
   //params.withCredentials = true 
   //params.baseURL = window.location.origin + '/api/v2'
 
-  params.baseURL = 'http://www.supernn.net/api/v1'
+  params.baseURL = 'https://www.supernn.net/api/v1'
   
   params.validateStatus = function (status) { // we can overwrite what is success
     return status >= 200 && status < 300; // but, use default behavior
