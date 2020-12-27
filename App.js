@@ -27,7 +27,7 @@ export default class App extends React.Component {
   render() {
   return (
     <Provider store={store}>
-      { /* <PersistGate loading={null} persistor={persistor}> */ }
+      <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
@@ -44,7 +44,7 @@ export default class App extends React.Component {
               }}/>
           </Stack.Navigator>
         </NavigationContainer>
-      { /* </PersistGate> */}
+      </PersistGate>
     </Provider>
   )
   }

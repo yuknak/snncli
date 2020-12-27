@@ -20,10 +20,6 @@ const initialState = {
           //      total: 165
           //      }, ...
           //   }
-  settings: {
-    webview_desktop: true,
-    remove_ads: true,
-  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,19 +42,10 @@ export default function reducer(state=initialState, action) {
           ...state.recs, 
           [action.name]:action.response// array data
         }}
-    case Action.APP_UPDATE_SETTINGS:
-      return { ...state, settings: action.settings }
     default:
       console.log("AppState reducer: default case called: "+action.type)
       return state;
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-export function updateSettings(settings) {
-  return ({type: Action.APP_UPDATE_SETTINGS,
-    settings: settings,})
 }
 
 ////////////////////////////////////////////////////////////////////////////////

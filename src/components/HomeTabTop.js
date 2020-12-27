@@ -74,6 +74,9 @@ class HomeTabTop extends Component {
 
     var ele = []
     data.forEach((d)=> {
+      if (!d.board || !d.board.name) {
+        return null
+      }
       ele.push(
       <ListItem icon onPress={()=>{
         this.props.navigation.jumpTo('Category',{boardName: d.board.name})

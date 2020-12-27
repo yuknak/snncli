@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import apiStateReducer from './src/redux/ApiState';
 import appStateReducer from './src/redux/AppState';
 import uiStateReducer from './src/redux/UiState';
+import settingStateReducer from './src/redux/SettingState';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Using Redux-Thunk framework with persist and encrypting
@@ -26,7 +27,7 @@ const persistConfig = {
   key: 'snncli.root',
   storage: AsyncStorage,
   transforms: [encryptor],
-  blacklist: ['apiState' /*,'appState','uiState'*/ ]
+  whitelist: ['settingState'],
 }
 
 const persistedReducer = persistReducer(
@@ -34,7 +35,8 @@ const persistedReducer = persistReducer(
   combineReducers({
     apiState: apiStateReducer,
     appState: appStateReducer,
-    uiState: uiStateReducer
+    uiState: uiStateReducer,
+    settingState: settingStateReducer,
   })
 )
 
@@ -46,7 +48,7 @@ const store = reduxCreateStore(
   persistedReducer, applyMiddleware(thunk)
 )
 
-//export const persistor = persistStore(store)
+export const persistor = persistStore(store)
 export default store
 
 ////////////////////////////////////////////////////////////////////////////////

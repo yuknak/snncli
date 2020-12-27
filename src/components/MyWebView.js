@@ -4,6 +4,7 @@ import { Linking, Platform } from 'react-native'
 import { Container, Item, Header, Title, Input, Content, Footer, FooterTab, Button, Left, Right, Body, Text,Icon,List,ListItem,Thumbnail,Subtitle,Spinner } from 'native-base';
 import * as uiState from '../redux/UiState'
 import * as appState from '../redux/AppState'
+import * as settingState from '../redux/SettingState'
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -120,7 +121,7 @@ class MyWebView extends PureComponent {
       var timer = setInterval(clean, 1000);
       true;
     `;
-    if (Platform.OS === 'android' && this.props.appState.settings.remove_ads) {
+    if (Platform.OS === 'android' && this.props.settingState.settings.remove_ads) {
       var id = setInterval(()=>{
         if (this.webref) {
           this.webref.injectJavaScript(runFirst);
@@ -129,11 +130,11 @@ class MyWebView extends PureComponent {
       }, 1500);  
     }
     var userAgent = undefined
-    if (this.props.appState.settings.webview_desktop) {
+    if (this.props.settingState.settings.webview_desktop) {
       userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"
     }
     var webview
-    if (this.props.appState.settings.remove_ads) {
+    if (this.props.settingState.settings.remove_ads) {
       webview = Platform.select({
         ios: (<WebView
           userAgent={userAgent}
@@ -163,7 +164,7 @@ class MyWebView extends PureComponent {
     } else {
       webview = Platform.select({
         ios: (<WebView
-          userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
+          userAgent={userAgent}
           ref={(r) => (this.webref = r)}
           source={{uri: uri}}
           onLoad={()=>{  }}
@@ -174,7 +175,7 @@ class MyWebView extends PureComponent {
           }}
         />),
         android: (<WebView
-          userAgent={"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"}
+          userAgent={userAgent}
           ref={(r) => (this.webref = r)}
           source={{uri: uri}}
           onLoad={()=>{  }}
@@ -217,6 +218,7 @@ const mapStateToProps = state => {
   return {
     uiState: state.uiState,
     appState: state.appState,
+    settingState: state.settingState,
   }
 }
 
