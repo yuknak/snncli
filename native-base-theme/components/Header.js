@@ -7,8 +7,7 @@ import { PLATFORM } from './../variables/commonColor';
 
 export default (variables /* : * */ = variable) => {
   const platformStyle = variables.platformStyle;
-  const platform = variables.platform;
-
+  const platform = variables.platformOrig;
   const headerTheme = {
     '.span': {
       height: 128,

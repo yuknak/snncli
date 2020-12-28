@@ -4,7 +4,7 @@ import variable from './../variables/platform';
 import { PLATFORM } from './../variables/commonColor';
 
 export default (variables /* : * */ = variable) => {
-  const platform = variables.platform;
+  const platform = variables.platformOrig;
 
   const tabHeadingTheme = {
     flexDirection: 'row',

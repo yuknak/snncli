@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import store, { persistor } from './configureStore'
 //import { Alert } from 'react-native'
+import { Container, Content, Button, Text } from 'native-base'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -13,6 +14,10 @@ import { createStackNavigator } from '@react-navigation/stack'
 import HomeHeader from './src/components/MyHeader'
 import NavDrawerScreens from './src/components/NavDrawerScreens'
 import MyWebView from './src/components/MyWebView'
+
+import { StyleProvider } from 'native-base'
+import getTheme from './native-base-theme/components'
+import mytheme from './native-base-theme/variables/mytheme';
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -26,6 +31,7 @@ export default class App extends React.Component {
   }
   render() {
   return (
+    <StyleProvider style={getTheme(mytheme)}>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
@@ -46,6 +52,7 @@ export default class App extends React.Component {
         </NavigationContainer>
       </PersistGate>
     </Provider>
+    </StyleProvider>
   )
   }
 }
