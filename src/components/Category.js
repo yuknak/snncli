@@ -93,13 +93,15 @@ class Category extends PureComponent {
         )
       }
     })
+    // TODO: use theme color in scrollable tab
     return (
       <Container>
-        <Tabs page={this.state.activeTab} renderTabBar={()=> <ScrollableTab />}>
+        <Tabs renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
           {tabList}
         </Tabs>
       </Container>
     );
+
   }
 }
 

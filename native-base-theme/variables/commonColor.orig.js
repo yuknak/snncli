@@ -12,18 +12,16 @@ export const PLATFORM = {
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
-const platformOrig = Platform.OS; // store original platform
+const platform = Platform.OS;
 const platformStyle = undefined;
 const isIphoneX =
-  platformOrig === PLATFORM.IOS &&
+  platform === PLATFORM.IOS &&
   (deviceHeight === 812 ||
     deviceWidth === 812 ||
     deviceHeight === 896 ||
     deviceWidth === 896);
-const platform = 'ios' // force ios
 
 export default {
-  platformOrig,
   platformStyle,
   platform,
 
@@ -56,10 +54,10 @@ export default {
   // Badge
   badgeBg: '#ED1727',
   badgeColor: '#fff',
-  badgePadding: platformOrig === PLATFORM.IOS ? 3 : 0,
+  badgePadding: platform === PLATFORM.IOS ? 3 : 0,
 
   // Button
-  buttonFontFamily: platformOrig === PLATFORM.IOS ? 'System' : 'Roboto_medium',
+  buttonFontFamily: platform === PLATFORM.IOS ? 'System' : 'Roboto_medium',
   buttonDisabledBg: '#b5b5b5',
   buttonPadding: 6,
   get buttonPrimaryBg() {
@@ -93,7 +91,7 @@ export default {
     return this.inverseTextColor;
   },
   get buttonTextSize() {
-    return platformOrig === PLATFORM.IOS
+    return platform === PLATFORM.IOS
       ? this.fontSizeBase * 1.1
       : this.fontSizeBase - 1;
   },
@@ -117,16 +115,16 @@ export default {
   cardDefaultBg: '#fff',
   cardBorderColor: '#ccc',
   cardBorderRadius: 2,
-  cardItemPadding: platformOrig === PLATFORM.IOS ? 10 : 12,
+  cardItemPadding: platform === PLATFORM.IOS ? 10 : 12,
 
   // CheckBox
-  CheckboxRadius: platformOrig === PLATFORM.IOS ? 13 : 0,
-  CheckboxBorderWidth: platformOrig === PLATFORM.IOS ? 1 : 2,
-  CheckboxPaddingLeft: platformOrig === PLATFORM.IOS ? 4 : 2,
-  CheckboxPaddingBottom: platformOrig === PLATFORM.IOS ? 0 : 5,
-  CheckboxIconSize: platformOrig === PLATFORM.IOS ? 21 : 16,
-  CheckboxIconMarginTop: platformOrig === PLATFORM.IOS ? undefined : 1,
-  CheckboxFontSize: platformOrig === PLATFORM.IOS ? 23 / 0.9 : 17,
+  CheckboxRadius: platform === PLATFORM.IOS ? 13 : 0,
+  CheckboxBorderWidth: platform === PLATFORM.IOS ? 1 : 2,
+  CheckboxPaddingLeft: platform === PLATFORM.IOS ? 4 : 2,
+  CheckboxPaddingBottom: platform === PLATFORM.IOS ? 0 : 5,
+  CheckboxIconSize: platform === PLATFORM.IOS ? 21 : 16,
+  CheckboxIconMarginTop: platform === PLATFORM.IOS ? undefined : 1,
+  CheckboxFontSize: platform === PLATFORM.IOS ? 23 / 0.9 : 17,
   checkboxBgColor: '#039BE5',
   checkboxSize: 20,
   checkboxTickColor: '#fff',
@@ -152,7 +150,7 @@ export default {
 
   // Font
   DefaultFontSize: 16,
-  fontFamily: platformOrig === PLATFORM.IOS ? 'System' : 'Roboto',
+  fontFamily: platform === PLATFORM.IOS ? 'System' : 'Roboto',
   fontSizeBase: 15,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
@@ -171,7 +169,7 @@ export default {
 
   // FooterTab
   tabBarTextColor: platform === PLATFORM.IOS ? '#737373' : '#bfc6ea',
-  tabBarTextSize: platformOrig === PLATFORM.IOS ? 14 : 11,
+  tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
   activeTab: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   sTabBarActiveTextColor: '#007aff',
   tabBarActiveTextColor: platform === PLATFORM.IOS ? '#2874F0' : '#fff',
@@ -180,11 +178,11 @@ export default {
   // Header
   toolbarBtnColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   toolbarDefaultBg: platform === PLATFORM.IOS ? '#F8F8F8' : '#3F51B5',
-  toolbarHeight: platformOrig === PLATFORM.IOS ? 64 : 56,
-  toolbarSearchIconSize: platformOrig === PLATFORM.IOS ? 20 : 23,
+  toolbarHeight: platform === PLATFORM.IOS ? 64 : 56,
+  toolbarSearchIconSize: platform === PLATFORM.IOS ? 20 : 23,
   toolbarInputColor: platform === PLATFORM.IOS ? '#CECDD2' : '#fff',
-  searchBarHeight: platformOrig === PLATFORM.IOS ? 30 : 40,
-  searchBarInputHeight: platformOrig === PLATFORM.IOS ? 30 : 50,
+  searchBarHeight: platform === PLATFORM.IOS ? 30 : 40,
+  searchBarInputHeight: platform === PLATFORM.IOS ? 30 : 50,
   toolbarBtnTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   iosStatusbar: 'dark-content',
   toolbarDefaultBorder: platform === PLATFORM.IOS ? '#a7a6ab' : '#3F51B5',
@@ -201,8 +199,8 @@ export default {
 
   // Icon
   iconFamily: 'Ionicons',
-  iconFontSize: platformOrig === PLATFORM.IOS ? 30 : 28,
-  iconHeaderSize: platformOrig === PLATFORM.IOS ? 33 : 24,
+  iconFontSize: platform === PLATFORM.IOS ? 30 : 28,
+  iconHeaderSize: platform === PLATFORM.IOS ? 33 : 24,
 
   // InputGroup
   inputFontSize: 17,
@@ -222,14 +220,14 @@ export default {
   lineHeightH1: 32,
   lineHeightH2: 27,
   lineHeightH3: 25,
-  lineHeight: platformOrig === PLATFORM.IOS ? 20 : 24,
+  lineHeight: platform === PLATFORM.IOS ? 20 : 24,
 
   // List
   listBg: 'transparent',
   listBorderColor: '#c9c9c9',
   listDividerBg: '#f4f4f4',
   listBtnUnderlayColor: '#DDD',
-  listItemPadding: platformOrig === PLATFORM.IOS ? 10 : 12,
+  listItemPadding: platform === PLATFORM.IOS ? 10 : 12,
   listNoteColor: '#808080',
   listNoteSize: 13,
   listItemSelected: platform === PLATFORM.IOS ? '#007aff' : '#3F51B5',
@@ -239,9 +237,9 @@ export default {
   inverseProgressColor: '#1A191B',
 
   // Radio Button
-  radioBtnSize: platformOrig === PLATFORM.IOS ? 25 : 23,
+  radioBtnSize: platform === PLATFORM.IOS ? 25 : 23,
   radioSelectedColorAndroid: '#3F51B5',
-  radioBtnLineHeight: platformOrig === PLATFORM.IOS ? 29 : 24,
+  radioBtnLineHeight: platform === PLATFORM.IOS ? 29 : 24,
   get radioColor() {
     return this.brandPrimary;
   },
@@ -278,14 +276,14 @@ export default {
   },
 
   // Title
-  titleFontfamily: platformOrig === PLATFORM.IOS ? 'System' : 'Roboto_medium',
-  titleFontSize: platformOrig === PLATFORM.IOS ? 17 : 19,
-  subTitleFontSize: platformOrig === PLATFORM.IOS ? 11 : 14,
+  titleFontfamily: platform === PLATFORM.IOS ? 'System' : 'Roboto_medium',
+  titleFontSize: platform === PLATFORM.IOS ? 17 : 19,
+  subTitleFontSize: platform === PLATFORM.IOS ? 11 : 14,
   subtitleColor: platform === PLATFORM.IOS ? '#000' : '#fff',
   titleFontColor: platform === PLATFORM.IOS ? '#000' : '#fff',
 
   // Other
-  borderRadiusBase: platformOrig === PLATFORM.IOS ? 5 : 2,
+  borderRadiusBase: platform === PLATFORM.IOS ? 5 : 2,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
   contentPadding: 10,
   dropdownLinkColor: '#414142',
