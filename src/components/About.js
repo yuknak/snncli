@@ -32,7 +32,7 @@ class About extends Component {
         <Content padder>
           <Card>
             <CardItem header bordered>
-              <Text>SUPERNN.NET 掲示板ニュース速報</Text>
+              <Text>SUPERNN 掲示板ニュース速報</Text>
             </CardItem>
             <CardItem bordered>
               <Body>
