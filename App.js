@@ -17,7 +17,7 @@ import MyWebView from './src/components/MyWebView'
 
 import { StyleProvider } from 'native-base'
 import getTheme from './native-base-theme/components'
-import mytheme from './native-base-theme/variables/mytheme';
+import platform from './native-base-theme/variables/platform';
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ export default class App extends React.Component {
   }
   render() {
   return (
-    <StyleProvider style={getTheme(mytheme)}>
+    <StyleProvider style={getTheme(platform)}>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
