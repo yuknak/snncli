@@ -52,7 +52,7 @@ export const categoryColors = {
   "latest": 'gray',
   "today": 'gray',
   "yesterday": 'gray',  
-  "festival": 'gray',  
+  "week": 'gray',  
   "search": 'gray',
   // setting icon
   "webview_desktop": '#0E6FB9',

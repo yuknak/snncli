@@ -200,7 +200,7 @@ class MyWebView extends PureComponent {
           </Button>
           <Button  onPress={()=>{this.webref.goBack()}}>
             <Icon name="chevron-back"/>
-            <Text>前へ</Text>
+            <Text>戻る</Text>
           </Button>
           <Button  onPress={()=>{this.props.navigation.goBack()}}>
             <Icon name="close"/>

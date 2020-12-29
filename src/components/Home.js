@@ -19,7 +19,7 @@ var board_list = [
   {title: "新着", key:"latest"},
   {title: "今日", key:"today"},
   {title: "昨日", key:"yesterday"},
-  {title: "週間", key:"festival"}, // TODO: change to week
+  {title: "週間", key:"week"},
 ]
 
 ////////////////////////////////////////////////////////////////////////////////
