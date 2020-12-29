@@ -42,13 +42,12 @@ class Category extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      //activeTab: 0
+      activeTab: 0
     }
   }
   searchTabIndex(board_name) {
     var index = 0;
     var ret = 0;
-    //Alert.alert('',JSON.stringify(this.props.appState))
     boards.some((board)=>{
       if (board.name == board_name && board.enable) {
         ret = index
@@ -96,7 +95,7 @@ class Category extends PureComponent {
     // TODO: use theme color in scrollable tab
     return (
       <Container>
-        <Tabs renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
+        <Tabs page={this.state.activeTab} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
           {tabList}
         </Tabs>
       </Container>
