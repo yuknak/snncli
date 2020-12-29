@@ -100,6 +100,7 @@ class CategoryTab extends Component {
           header={true}
           listref={this.listref}
           url={'/thread/'+this.props.boardName}
+          params={{per_page: 50}}
           recs_key={'get:/thread/'+this.props.boardName}
           {...this.props}
         />
@@ -144,6 +145,7 @@ class CategoryTab extends Component {
       <PageButtons
           listref={this.listref}
           url={'/thread/'+this.props.boardName}
+          params={{per_page: 50}}
           recs_key={'get:/thread/'+this.props.boardName}
           {...this.props}
         />

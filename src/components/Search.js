@@ -26,20 +26,6 @@ class Search extends Component {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
     });
-    /*
-    //this.setState({refreshing: true})
-    this.props.api({
-      method: 'get',
-      url: '/thread/search',
-      params: {per_page: 50},
-      noLoading: true
-    }, ()=>{ 
-      //Alert.alert("",JSON.stringify(this.props.appState.recs['get:/thread/search']))
-      //this.setState({refreshing: false})
-    }, ()=> {
-      //this.setState({refreshing: false})
-    })
-    */
   }
   componentWillUnmount() {
     this._unsubscribe()
@@ -68,8 +54,8 @@ class Search extends Component {
               var q = this.state.queryStr
               this.props.api({
                 method: 'get',
-                url: '/thread/search?q='+q,
-                params: {per_page: 50},
+                url: '/thread/search',
+                params: {q: q, per_page: 50},
                 //noLoading: true
               }, ()=>{ 
               }, ()=> {
@@ -97,8 +83,8 @@ class Search extends Component {
               var q = this.state.queryStr
               this.props.api({
                 method: 'get',
-                url: '/thread/search?q='+q,
-                params: {per_page: 50},
+                url: '/thread/search',
+                params: {q: q, per_page: 50},
                 //noLoading: true
               }, ()=>{ 
                 this.setState({refreshing: false})
@@ -111,7 +97,8 @@ class Search extends Component {
         <PageButtons
           header={true}
           listref={this.listref}
-          url={'/thread/search?q='+this.state.queryStr}
+          url={'/thread/search'}
+          params={{q: this.state.queryStr, per_page: 50}}
           recs_key={'get:/thread/search'}
           {...this.props}
         />
@@ -134,7 +121,8 @@ class Search extends Component {
           />
         <PageButtons
           listref={this.listref}
-          url={'/thread/search?q='+this.state.queryStr}
+          url={'/thread/search'}
+          params={{q: this.state.queryStr, per_page: 50}}
           recs_key={'get:/thread/search'}
           {...this.props}
         />

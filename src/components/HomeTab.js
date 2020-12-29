@@ -96,6 +96,7 @@ class HomeTab extends Component {
           header={true}
           listref={this.listref}
           url={'/thread/'+this.props.boardName}
+          params={{per_page: 50}}
           recs_key={'get:/thread/'+this.props.boardName}
           {...this.props}
         />
@@ -135,6 +136,7 @@ class HomeTab extends Component {
         <PageButtons
           listref={this.listref}
           url={'/thread/'+this.props.boardName}
+          params={{per_page: 50}}
           recs_key={'get:/thread/'+this.props.boardName}
           {...this.props}
         />

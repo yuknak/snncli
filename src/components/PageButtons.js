@@ -25,6 +25,10 @@ class PageButtons extends React.Component {
     if (!this.props.url) {
       return null
     }
+    if (!this.props.params) {
+      Alert.alert('PageButtons','params null '+this.props.recs_key)
+      return null
+    }
     //Alert.alert(this.props.recs_key)
     //Alert.alert(JSON.stringify(this.props.appState.recs[this.props.recs_key]))
     if (!this.props.appState.recs[this.props.recs_key] ||
@@ -46,18 +50,20 @@ class PageButtons extends React.Component {
     <Button  onPress={()=>{
       this.props.api({ method: 'get',
       //noLoading: true, // prevent from going back index 0 tab
-      url: this.props.url + '?page=1', params: {per_page: 50}}, ()=> {
+      url: this.props.url,
+      params: {page: 1, per_page: 50}},
+      ()=> {
         this.props.listref.scrollTo({ y: 0, animated: true, })
-       
       })
     }}><Text>&lt;&lt;&nbsp;</Text></Button>)    
     var back = (
       <Button  onPress={()=>{
         this.props.api({ method: 'get',
         //noLoading: true,
-        url: this.props.url + '?page='+prev_page, params: {per_page: 50}}, ()=> {
+        url: this.props.url,
+        params: {page: prev_page, per_page: 50}},
+        ()=> {
           this.props.listref.scrollTo({ y: 0, animated: true, })
-    
         })
       }}><Text>&lt;&nbsp;</Text></Button>
     )
@@ -65,9 +71,10 @@ class PageButtons extends React.Component {
       <Button  onPress={()=>{
         this.props.api({ method: 'get',
         //noLoading: true,
-        url: this.props.url + '?page='+next_page, params: {per_page: 50}}, ()=> {
-          this.props.listref.scrollTo({ y: 0, animated: true, })
-    
+        url: this.props.url,
+        params: {page: next_page, per_page: 50}},
+        ()=> {
+          this.props.listref.scrollTo({ y: 0, animated: true, })   
         })
       }}><Text>&nbsp;&gt;</Text></Button>
     )
@@ -75,7 +82,9 @@ class PageButtons extends React.Component {
       <Button  onPress={()=>{
         this.props.api({ method: 'get',
         //noLoading: true,
-        url: this.props.url + '?page='+total_pages, params: {per_page: 50}}, ()=> {
+        url: this.props.url,
+        params: {page: total_pages, per_page: 50}},
+        ()=> {
           this.props.listref.scrollTo({ y: 0, animated: true, })
         })
       }}><Text>&nbsp;&gt;&gt;</Text></Button>

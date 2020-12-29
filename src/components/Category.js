@@ -42,12 +42,12 @@ class Category extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 0
+      activeTab: -1
     }
   }
-  searchTabIndex(board_name) {
+  setTab(board_name) {
     var index = 0;
-    var ret = 0;
+    var ret = -1;
     boards.some((board)=>{
       if (board.name == board_name && board.enable) {
         ret = index
@@ -55,7 +55,17 @@ class Category extends PureComponent {
       }
       ++index
     })
-    return ret
+    if (ret >= 0) {
+      // this is a messy hack(--)
+      setTimeout(()=>{
+        this.setState({activeTab: ret})
+      }, 100)
+      setTimeout(()=>{
+        this.setState({activeTab: -1})
+      }, 600)
+    } else {
+      console.log('Tab index error!')
+    }
   } 
   componentDidMount() {
     //this.props.initState('test4') // TODO:
@@ -64,9 +74,7 @@ class Category extends PureComponent {
       if (this.props.route.params && this.props.route.params.boardName) {
         // Jump into activated tab
         var targetBoardName = this.props.route.params.boardName
-        var tabIndex = this.searchTabIndex(targetBoardName)
-        this.setState({activeTab: tabIndex})
-        //console.log('setState()')
+        this.setTab(targetBoardName)
       }
 
     });
@@ -93,11 +101,26 @@ class Category extends PureComponent {
       }
     })
     // TODO: use theme color in scrollable tab
+    var tabs = null
+    if (this.state.activeTab >= 0) {
+      tabs = (
+      <Tabs page={this.state.activeTab} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
+      {tabList}
+      </Tabs>
+      )
+    } else {
+      tabs = (
+        <Tabs renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
+        {tabList}
+        </Tabs>
+        )
+    }
+
+    // TODO: use theme color in scrollable tab
+    console.log('activetab:'+this.state.activeTab)
     return (
       <Container>
-        <Tabs page={this.state.activeTab} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
-          {tabList}
-        </Tabs>
+        {tabs}
       </Container>
     );
 
