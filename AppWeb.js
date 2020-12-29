@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const App = () => (
   <View style={styles.box}>
-    <Text style={styles.text}>Hello, world!</Text>
+    <Text style={styles.text}>Hello, world! 33333</Text>
   </View>
 );
 

@@ -9,6 +9,8 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin')
 
 const appDirectory = path.resolve(__dirname, './');
 
@@ -70,9 +72,17 @@ module.exports = {
 
   // configures where the build ends up
   output: {
-    filename: '112.bundle.web.js',
+    filename: '[hash].bundle.web.js',
     path: path.resolve(appDirectory, 'dist')
   },
+
+  // for hash value
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new HtmlWebpackPartialsPlugin({ // add root
+      path: path.resolve(appDirectory, 'dist/_partial.html')
+    })
+  ],
 
   // ...the rest of your config
 
