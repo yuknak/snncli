@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "web": "node_modules/webpack-cli/bin/cli.js",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
@@ -24,6 +25,7 @@
     "moment-timezone": "^0.5.32",
     "native-base": "^2.13.15",
     "react": "16.9.0",
+    "react-dom": "^17.0.1",
     "react-native": "0.61.5",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-modal": "^11.5.6",
@@ -32,13 +34,17 @@
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.16.1",
     "react-native-tab-view": "^2.15.2",
+    "react-native-web": "^0.14.10",
     "react-native-webview": "^11.0.2",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-persist-transform-encrypt": "^3.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^4.32.2",
+    "webpack-dev-server": "^3.4.1"
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
@@ -49,13 +55,19 @@
     "@types/react-test-renderer": "16.9.1",
     "@typescript-eslint/eslint-plugin": "2.12.0",
     "@typescript-eslint/parser": "2.12.0",
-    "babel-jest": "24.9.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "23.6.0",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-react-native-web": "^0.11.4",
+    "babel-preset-react-native": "^5.0.2",
     "eslint": "6.5.1",
     "jest": "24.9.0",
-    "metro-react-native-babel-preset": "0.56.0",
+    "metro-react-native-babel-preset": "0.51.1",
+    "node-static": "^0.7.11",
     "prettier": "1.19.1",
     "react-test-renderer": "16.9.0",
-    "typescript": "3.7.3"
+    "typescript": "3.7.3",
+    "webpack-cli": "^3.2.1"
   },
   "jest": {
     "preset": "react-native",
