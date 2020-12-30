@@ -53,7 +53,9 @@ class PageButtons extends React.Component {
       url: this.props.url,
       params: { ...this.props.params, page: 1, per_page: 50}},
       ()=> {
-        this.props.listref.scrollTo({ y: 0, animated: true, })
+        setTimeout(()=>{
+          this.props.listref.scrollTo({ y: 0, animated: true, })
+        }, 100)
       })
     }}><Text>&lt;&lt;&nbsp;</Text></Button>)    
     var back = (
@@ -63,7 +65,9 @@ class PageButtons extends React.Component {
         url: this.props.url,
         params: {...this.props.params,page: prev_page, per_page: 50}},
         ()=> {
-          this.props.listref.scrollTo({ y: 0, animated: true, })
+          setTimeout(()=>{
+            this.props.listref.scrollTo({ y: 0, animated: true, })
+          }, 100)
         })
       }}><Text>&lt;&nbsp;</Text></Button>
     )
@@ -74,7 +78,9 @@ class PageButtons extends React.Component {
         url: this.props.url,
         params: {...this.props.params,page: next_page, per_page: 50}},
         ()=> {
-          this.props.listref.scrollTo({ y: 0, animated: true, })   
+          setTimeout(()=>{
+            this.props.listref.scrollTo({ y: 0, animated: true, })
+          }, 100)
         })
       }}><Text>&nbsp;&gt;</Text></Button>
     )
@@ -85,7 +91,9 @@ class PageButtons extends React.Component {
         url: this.props.url,
         params: {...this.props.params,page: total_pages, per_page: 50}},
         ()=> {
-          this.props.listref.scrollTo({ y: 0, animated: true, })
+          setTimeout(()=>{
+            this.props.listref.scrollTo({ y: 0, animated: true, })
+          }, 100)
         })
       }}><Text>&nbsp;&gt;&gt;</Text></Button>
     )
