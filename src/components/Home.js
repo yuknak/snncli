@@ -21,9 +21,11 @@ var board_list = [
   {title: "昨日", key:"yesterday"},
   {title: "週間", key:"week"},
 ]
+var scroll_callbacks = [
+  null, null, null, null, null
+]
 
 ////////////////////////////////////////////////////////////////////////////////
-
 class Home extends PureComponent {
   constructor(props) {
     super(props);
@@ -40,26 +42,51 @@ class Home extends PureComponent {
   }
   render() {
     var tabList = []
+    var i = 0
     board_list.forEach((item)=> {
       if (item.key=="top") {
         tabList.push(
-          <Tab key={item.key} heading={item.title}>
-            <HomeTabTop boardName={item.key} title={item.title} {...this.props}/>
-          </Tab>
+          <HomeTabTop
+            index={i}
+            key={item.key}
+            heading={item.title}
+            boardName={item.key}
+            title={item.title}
+            set_scroll_callback={(i, func)=>{ scroll_callbacks[i] = func }}
+            {...this.props}
+          />
         )
   
       } else {
         tabList.push(
-          <Tab key={item.key} heading={item.title}>
-            <HomeTab boardName={item.key} title={item.title} {...this.props}/>
-          </Tab>
+          <HomeTab
+            index={i}
+            key={item.key}
+            heading={item.title}
+            boardName={item.key}
+            title={item.title}
+            set_scroll_callback={(i, func)=>{ scroll_callbacks[i] = func }}
+            {...this.props}
+          />
         )
       }
+      ++i
     })
     // TODO: use theme color in scrollable tab
     return (
       <Container>
-        <Tabs renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
+        <Tabs
+          onChangeTab={(obj)=>{
+            //obj.i = index
+            func = null
+            if (scroll_callbacks[obj.i]) {
+              func = scroll_callbacks[obj.i]()
+            }
+            if (func) {
+              func()
+            }
+          }}
+          renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
           {tabList}
         </Tabs>
       </Container>
