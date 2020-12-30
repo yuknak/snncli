@@ -3,7 +3,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
+import { Tab,Container, Content, Text,List,ListItem,Left,Right,Button,Icon,Body } from 'native-base';
 import { Alert, RefreshControl,ScrollView  } from "react-native";
 import * as apiState from '../redux/ApiState'
 import { formatDatetime,listCategoryStyles,replaceTitle, brandColors, formatEpoch, listItemStyles, listHeaderStyles } from '../lib/Common';
@@ -25,6 +25,11 @@ class CategoryTab extends Component {
     }
   }
   componentDidMount() {
+    this.props.set_scroll_callback(this.props.index, ()=>{
+      if (this.listref) {
+        this.listref.scrollTo({ y: 0, animated: true, })
+      }
+    })
     //this.setState({refreshing: true})
     this.props.api({
       method: 'get',
@@ -71,6 +76,7 @@ class CategoryTab extends Component {
     var params = {}
     params = {per_page: 50}
     return (
+      <Tab key={this.props.key} heading={this.props.heading}>
       <Container>
       <ScrollView
         ref={(r) => (this.listref = r)}
@@ -152,6 +158,7 @@ class CategoryTab extends Component {
       </ScrollView>
 
       </Container>
+      </Tab>
     )
   }
 }

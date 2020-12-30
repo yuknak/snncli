@@ -36,6 +36,12 @@ const boards = [
     server_name_cached:"egg.5ch.net",enable:true},
 ]
 
+var scroll_callbacks = [
+  null, null, null, null, null,
+  null, null, null, null, null,
+  null
+]
+
 ////////////////////////////////////////////////////////////////////////////////
 
 class Category extends PureComponent {
@@ -87,33 +93,63 @@ class Category extends PureComponent {
     //if (!this.props.appState.settings||!this.props.appState.settings.boards) {
     //  return null
     //}
+    var i = 0
     boards.forEach((item)=> {
       if (item.enable) {
         tabList.push(
-          <Tab key={item.name} heading={item.title_cached}>
-            <CategoryTab
-              boardName={item.name}
-              title={item.title_cached}
-              serverName={item.server_name_cached}
-              {...this.props}/>
-          </Tab>
+          <CategoryTab
+            index={i}
+            key={item.name}
+            heading={item.title_cached}
+            boardName={item.name}
+            title={item.title_cached}
+            serverName={item.server_name_cached}
+            set_scroll_callback={(i, func)=>{ scroll_callbacks[i] = func }}
+            {...this.props}
+          />
         )
+        ++i
       }
     })
     // TODO: use theme color in scrollable tab
     var tabs = null
     if (this.state.activeTab >= 0) {
       tabs = (
-      <Tabs page={this.state.activeTab} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
-      {tabList}
-      </Tabs>
+        <Tabs
+          onChangeTab={(obj)=>{
+            //obj.i = index
+            func = null
+            if (scroll_callbacks[obj.i]) {
+              func = scroll_callbacks[obj.i]()
+            }
+            if (func) {
+              func()
+            }
+          }}
+          page={this.state.activeTab}
+          renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}
+        >
+          {tabList}
+        </Tabs>
       )
     } else {
       tabs = (
-        <Tabs renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}>
-        {tabList}
+        <Tabs
+          onChangeTab={(obj)=>{
+            //obj.i = index
+            func = null
+            if (scroll_callbacks[obj.i]) {
+              func = scroll_callbacks[obj.i]()
+            }
+            if (func) {
+              func()
+            }
+          }}        
+          renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#F8F8F8'}}/>}
+        >
+          {tabList}
         </Tabs>
-        )
+      )
     }
 
     // TODO: use theme color in scrollable tab
