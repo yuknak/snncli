@@ -86,7 +86,8 @@ class HomeTabTop extends Component {
       }
       ele.push(
       <ListItem icon onPress={()=>{
-        this.props.navigation.jumpTo('Category',{boardName: d.board.name})
+        this.props.navigation.jumpTo(
+          'Category',{boardName: d.board.name, from: 'board.header'})
         }}
       key={d.board.name} style={[listItemStyles,listHeaderStyles(d.board.name)]}>
       <Left>

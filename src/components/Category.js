@@ -66,6 +66,13 @@ class Category extends PureComponent {
       setTimeout(()=>{
         this.setState({activeTab: ret})
       }, 100)
+      func = null
+      if (scroll_callbacks[ret]) {
+        func = scroll_callbacks[ret]()
+      }
+      if (func) {
+        func()
+      }
       setTimeout(()=>{
         this.setState({activeTab: -1})
       }, 600)
@@ -77,10 +84,15 @@ class Category extends PureComponent {
     //this.props.initState('test4') // TODO:
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
-      if (this.props.route.params && this.props.route.params.boardName) {
-        // Jump into activated tab
-        var targetBoardName = this.props.route.params.boardName
-        this.setTab(targetBoardName)
+      if (this.props.route.params.from &&
+        this.props.route.params.from == 'board.header') {
+        // only when user click in the top page
+        if (this.props.route.params && this.props.route.params.boardName) {
+          // Jump into activated tab
+          var targetBoardName = this.props.route.params.boardName
+          this.setTab(targetBoardName)
+        }
+        this.props.route.params.from=''
       }
 
     });
