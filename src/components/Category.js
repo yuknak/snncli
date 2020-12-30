@@ -84,7 +84,7 @@ class Category extends PureComponent {
     //this.props.initState('test4') // TODO:
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
       this.props.setNavigation(this.props.navigation,this.props.route.name)
-      if (this.props.route.params.from &&
+      if (this.props.route.params && this.props.route.params.from &&
         this.props.route.params.from == 'board.header') {
         // only when user click in the top page
         if (this.props.route.params && this.props.route.params.boardName) {
